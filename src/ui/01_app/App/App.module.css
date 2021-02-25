@@ -1,0 +1,53 @@
+.app {
+  font-family: sans-serif;
+  text-align: center;
+  height: 100vh;
+}
+
+.app.dark {
+  background: #1a1a2e;
+  color: #fff;
+  transition: 0.3s all;
+}
+
+.app.light {
+  background: #fff;
+  color: #1a1a2e;
+  transition: 0.3s all;
+}
+
+.app p {
+  font-size: 24pt;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.switcherBtn {
+  border: none;
+  outline: none;
+  background-color: #fff !important;
+  color: #fff !important;
+  border: none !important;
+  padding: 0px !important;
+  cursor: pointer;
+}
+
+.switcherBtn.dark {
+  background-color: #1a1a2e !important;
+}
+
+.switcherBtn.light {
+  transition: 0.3s all;
+}
+
+.emoji {
+  font-size: 30px;
+}
+
+.btnBox {
+  display: flex;
+  justify-content: flex-end;
+}
