@@ -1,39 +1,48 @@
-import React from "react";
-import {NavLink} from "react-router-dom";
-import {PATH} from "../../05_routes/Routes";
-import style from "./Menu.module.css"
+import React from 'react';
+import {NavLink} from 'react-router-dom';
+import {PATH} from '../../05_routes/Routes';
+import style from './Menu.module.scss'
 
 type MenuType = {
-    className: string | undefined
+	theme?: string
 }
 
-export const Menu: React.FC<MenuType> = ({className}) => {
+export const Menu: React.FC<MenuType> = ({theme}) => {
 
-    return (
-        <div className={`${className}`}>
-            <div className={style.wrapLink}>
-                <NavLink className={style.link} to={PATH.REGISTRATION}>Registration</NavLink>
-            </div>
-            <div className={style.wrapLink}>
-                <NavLink className={style.link} to={PATH.LOGIN}>Login</NavLink>
-            </div>
-            <div className={style.wrapLink}>
-                <NavLink className={style.link} to={PATH.PROFILE}>Profile</NavLink>
-            </div>
-            <div className={style.wrapLink}>
-                <NavLink className={style.link} to={PATH.RECOVERY_PASSWORD}>Recovery Password</NavLink>
-            </div>
-            <div className={style.wrapLink}>
-                <NavLink className={style.link} to={PATH.NEW_PASSWORD}>NewPassword</NavLink>
-            </div>
-            <div className={style.wrapLink}>
-            </div>
-            <div  className={style.wrapLink}>
-                <NavLink className={style.link} to={PATH.PACKS}>Packs</NavLink>
-            </div>
-            {/*<div className={style.wrapLink}>*/}
-            {/*    <NavLink className={style.link} to={PATH.CARDS}>Cards</NavLink>*/}
-            {/*</div>*/}
-        </div>
-    )
+
+	return (
+		<nav className={style.navBox}>
+			<ul className={style.navList}>
+				<li className={style.navItem}>
+					<NavLink activeClassName={style.selected}
+									 className={`${style.link} ${theme === 'dark' ? style.dark : style.light}`}
+									 to={PATH.REGISTRATION}>Registration</NavLink>
+				</li>
+				<li className={style.navItem}>
+					<NavLink className={`${style.link} ${theme === 'dark' ? style.dark : style.light}`}
+									 activeClassName={style.selected} to={PATH.LOGIN}>Login</NavLink>
+				</li>
+				<li className={style.navItem}>
+					<NavLink className={`${style.link} ${theme === 'dark' ? style.dark : style.light}`}
+									 activeClassName={style.selected} to={PATH.PROFILE}>Profile</NavLink>
+				</li>
+				<li className={style.navItem}>
+					<NavLink className={`${style.link} ${theme === 'dark' ? style.dark : style.light}`}
+									 activeClassName={style.selected} to={PATH.RECOVERY_PASSWORD}>Recovery Password</NavLink>
+				</li>
+				<li className={style.navItem}>
+					<NavLink className={`${style.link} ${theme === 'dark' ? style.dark : style.light}`}
+									 activeClassName={style.selected} to={PATH.NEW_PASSWORD}>NewPassword</NavLink>
+				</li>
+
+				<li className={style.navItem}>
+					<NavLink className={`${style.link} ${theme === 'dark' ? style.dark : style.light}`}
+									 activeClassName={style.selected} to={PATH.PACKS}>Packs</NavLink>
+				</li>
+			</ul>
+			{/*<div className={style.navItem}>*/}
+			{/*    <NavLink className={style.link} to={PATH.CARDS}>Cards</NavLink>*/}
+			{/*</div>*/}
+		</nav>
+	)
 }

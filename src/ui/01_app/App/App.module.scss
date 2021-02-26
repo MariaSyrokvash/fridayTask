@@ -1,3 +1,5 @@
+@import "src/ui/06_common/styles/colors/colors";
+
 .app {
   font-family: sans-serif;
   text-align: center;
@@ -5,14 +7,14 @@
 }
 
 .app.dark {
-  background: #1a1a2e;
-  color: #fff;
+  background: $dark-theme-bg;
+  color: $dark-theme-text;
   transition: 0.3s all;
 }
 
 .app.light {
-  background: #fff;
-  color: #1a1a2e;
+  background: $light-theme-bg;
+  color: $light-theme-text;
   transition: 0.3s all;
 }
 
@@ -28,15 +30,15 @@ body {
 .switcherBtn {
   border: none;
   outline: none;
-  background-color: #fff !important;
-  color: #fff !important;
+  background-color: $light-theme-bg !important;
+  color: $light-theme-bg !important;
   border: none !important;
   padding: 0px !important;
   cursor: pointer;
 }
 
 .switcherBtn.dark {
-  background-color: #1a1a2e !important;
+  background-color: $dark-theme-bg !important;
 }
 
 .switcherBtn.light {
@@ -48,6 +50,7 @@ body {
 }
 
 .btnBox {
-  display: flex;
-  justify-content: flex-end;
+  position: absolute;
+  right: 10px;
+  top: 15px;
 }
