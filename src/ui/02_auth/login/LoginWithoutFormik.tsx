@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
-import style from './Login.module.css'
+import style from './Login.module.scss'
 
 export const LoginWithoutFormik = () => {
 

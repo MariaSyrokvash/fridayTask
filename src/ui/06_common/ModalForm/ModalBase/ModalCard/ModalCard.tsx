@@ -1,8 +1,8 @@
 import React, {ChangeEvent, FC} from 'react'
 import s from './ModalCard.module.css'
 import {useParams} from 'react-router-dom';
-import SuperButton from '../../../SuperButton/SuperButton';
-import SuperInputText from '../../../SuperInputText/SuperInputText';
+import SuperButton from '../../../c2-SuperButton/SuperButton';
+import SuperInputText from '../../../c1-SuperInputText/SuperInputText';
 
 type PropsType = {
 	closeModal: () => void

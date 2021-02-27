@@ -6,25 +6,17 @@ import Logout from "../02_auth/logout/Logout";
 
 
 type ProfileType = {
-    name: string
-    cardPacksCount: number
-    avatar:string
+
 }
 
 export const Profile = (props: ProfileType) => {
 
-    const {name, cardPacksCount} = props
 
     return (
         <div>
             <h2>Profile</h2>
             <div className={style.wrap}>
-                <div className={style.content}>
-                <img src="some avatar" alt="avatar" height="200px"/>
-                <div> Name: {name}</div>
-                <div>  <NavLink className={style.link} to={PATH.PACKS}>Public card packs count: {cardPacksCount}</NavLink></div>
-                    <Logout/>
-                </div>
+
             </div>
         </div>
     );

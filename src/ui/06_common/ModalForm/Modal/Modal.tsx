@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import style from './Modal.module.css'
-import SuperButton from "../../SuperButton/SuperButton";
+import SuperButton from '../../c2-SuperButton/SuperButton';
 
 
 type ModalType = {

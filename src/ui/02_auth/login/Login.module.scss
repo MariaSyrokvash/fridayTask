@@ -1,0 +1,57 @@
+@import "src/ui/06_common/styles/colors/colors";
+
+.loginWrapper {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loginBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loginInner {
+  margin-bottom: 15px;
+}
+
+.loginCheckboxInner {
+  margin: 10px 30px;
+  width: 70%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.loginLabel {
+  font-size: 17px;
+}
+
+.loginTitle {
+  font-weight: 600;
+  margin: 0;
+  padding-bottom: 10px;
+}
+
+.error {
+  margin: 0 0 20px;
+  font-size: 16px;
+  color: $error-color;
+}
+
+.link {
+  margin-top: 20px;
+}
+
+.link.dark {
+  color: $dark-theme-text;
+}
+
+.link.light {
+  color: $light-theme-text;
+}
+
+.link:hover {
+  color: $accent-color;
+}

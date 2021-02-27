@@ -1,7 +1,7 @@
 import React, {FC} from 'react'
-import SuperButton from '../../../SuperButton/SuperButton';
 import s from './ModalConfirm.module.css'
 import {useParams} from 'react-router-dom';
+import SuperButton from '../../../c2-SuperButton/SuperButton';
 
 type PropsType = {
 	confirmHandler: (id: string) => void
