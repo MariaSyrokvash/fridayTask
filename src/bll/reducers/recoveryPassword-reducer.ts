@@ -1,5 +1,7 @@
 import {Dispatch} from 'redux';
 import {passwordRecoveryAPI} from '../../dal/PasswordRecoveryAPI';
+import {authAPI, LoginParamsType} from '../../dal/LoginAPI';
+import {setIsLoggedInAC, setUserProfileAC, signInErrorAC} from './login-reducer';
 
 enum RECOVERY {
 	SET_ERROR = 'SET_ERROR',
@@ -50,10 +52,11 @@ export const setAppStatusAC = (status: RequestStatusType) => ({type: RECOVERY.SE
 
 //thunks
 export const sendEmailTC = (email: string) => (dispatch: Dispatch) => {
+	debugger
 	dispatch(setAppStatusAC('loading'))
 	passwordRecoveryAPI.sendEmail(email)
 		.then(res => {
-			console.log(res)
+			console.log(res.data)
 			if (res.status === 200) {
 				dispatch(setSuccessAC(res.data.info))
 			}
@@ -68,6 +71,7 @@ export const sendEmailTC = (email: string) => (dispatch: Dispatch) => {
 			dispatch(setAppStatusAC('succeeded'))
 		})
 }
+
 
 
 type ActionsType = ReturnType<typeof setErrorAC>

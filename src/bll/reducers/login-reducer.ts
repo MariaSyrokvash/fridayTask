@@ -52,13 +52,11 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsTyp
 		.then(res => {
 			dispatch(setIsLoggedInAC(true))
 			dispatch(setUserProfileAC(res.data))
-			console.log(res.data)
 		})
 		.catch(err => {
 			const error = err.response
 				? err.response.data.error
 				: (err.message + ', more details in the console');
-			console.log(error)
 			dispatch(signInErrorAC(error))
 		})
 		.finally(() => {
