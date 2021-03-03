@@ -1,7 +1,8 @@
 import {Dispatch} from 'redux'
 import {setAppStatusAC} from './app-reducer';
 import {authAPI, LoginParamsType} from '../../dal/LoginAPI';
-import {ProfileType} from './profile-reducer';
+import {ThunkAction} from 'redux-thunk';
+import {AppRootState} from '../store';
 
 
 enum LOGIN {
@@ -12,9 +13,23 @@ enum LOGIN {
 
 const initialState: InitialStateType = {
 	isLoggedIn: false,
-	profile: null,
+	profile: {
+		_id: null,
+		email: null,
+		name: null,
+		avatar: null,
+		publicCardPacksCount: null,
+		created: null,
+		updated: null,
+		isAdmin: null,
+		verified: null,
+		rememberMe: null,
+		error: null
+	},
 	loginError: null
 }
+
+console.log(initialState, 'initialState')
 
 export const loginReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
 	switch (action.type) {
@@ -64,18 +79,43 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsTyp
 		})
 }
 
+export const authMeTC = (): AuthMeThunkType => (dispatch) => {
+	return authAPI.authMe()
+		.then(res => {
+			console.log(res)
+		})
+}
+
 export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
 
 }
 
 
+
 type InitialStateType = {
 	isLoggedIn: boolean
-	profile: null | ProfileType
+	profile: ProfileType
 	loginError: null | string
 }
+
+export type ProfileType = {
+	_id: string | null
+	email: string | null
+	name: string | null
+	avatar: string | null
+	publicCardPacksCount: number | null
+	created: string | null
+	updated: string | null
+	isAdmin: boolean | null
+	verified: boolean | null
+	rememberMe: boolean | null
+	error: string | null
+}
+
 type ActionsType =
 	ReturnType<typeof setIsLoggedInAC>
 	| ReturnType<typeof setUserProfileAC>
 	| ReturnType<typeof setAppStatusAC>
 	| ReturnType<typeof signInErrorAC>
+
+type AuthMeThunkType = ThunkAction<Promise<void>, AppRootState, Dispatch<ActionsType>, ActionsType>

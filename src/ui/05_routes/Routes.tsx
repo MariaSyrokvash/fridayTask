@@ -1,14 +1,14 @@
 import React, {FC} from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
-import {LoginContainer} from '../02_auth/login/LoginContainer';
 import {ProfileContainer} from '../04_profile/ProfileContainer';
 import {Test} from '../test/Test';
-import {RegistrationContainer} from '../02_auth/registration/RegistrationContainer';
-import {Error404} from '../06_common/error404/Error404';
-import {NewPasswordContainer} from '../02_auth/newPassword/NewPasswordContainer';
-import {PasswordRecoveryContainer} from '../02_auth/passwordRecovery/PasswordRecoveryContainer';
-import {PacksContainer} from '../03_packs/packs/PacksContainer';
 import {Cards} from '../03_packs/Cards/Cards';
+import {LoginContainer} from '../02_auth/q1-login/LoginContainer';
+import {RegistrationContainer} from '../02_auth/q3-registration/RegistrationContainer';
+import {Error404} from '../06_common/c4-Error404/Error404';
+import {PasswordRecoveryContainer} from '../02_auth/q4-passwordRecovery/PasswordRecoveryContainer';
+import {NewPasswordContainer} from '../02_auth/q5-newPassword/NewPasswordContainer';
+import {PacksContainer} from '../03_packs/Packs/PacksContainer';
 
 export const PATH = {
 	LOGIN: '/login',

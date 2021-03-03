@@ -5,7 +5,7 @@ import {PATH} from '../../05_routes/Routes';
 import {useSelector} from 'react-redux';
 import {AppRootState} from '../../../bll/store';
 import {RequestErrorType, RequestStatusType} from '../../../bll/reducers/app-reducer';
-import Loader from '../../06_common/Loader/Loader';
+import Loader from '../../06_common/c5-Loader/Loader';
 
 
 type RegistrationContainerPropsType = {

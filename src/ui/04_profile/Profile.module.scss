@@ -1,0 +1,36 @@
+@import "src/ui/06_common/styles/colors/colors";
+
+.wrap {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profileBox {
+  margin-top: 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.name {
+  font-weight: 500;
+  font-size: 25px;
+  margin: 0 0 20px;
+}
+
+.packs {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.nameAccent {
+  color: $accent-color;
+}
+
+.packLink {
+  text-decoration: none;
+  color: $accent-color;
+}

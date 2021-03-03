@@ -13,6 +13,9 @@ export const authAPI = {
 	login(parameters: LoginParamsType) {
 		return instance.post<ProfileType>('auth/login', parameters)
 	},
+	authMe() {
+		return instance.post('auth/me')
+	},
 	logout() {
 		return instance.delete('auth/me')
 	}

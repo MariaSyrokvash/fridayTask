@@ -1,23 +1,29 @@
-import React from 'react';
-import style from './Profile.module.css'
-import {PATH} from "../05_routes/Routes";
-import {NavLink} from "react-router-dom";
-import Logout from "../02_auth/logout/Logout";
+import React, {FC} from 'react';
+import { NavLink } from 'react-router-dom';
+import { ProfileType } from '../../bll/reducers/login-reducer';
+import style from './Profile.module.scss'
+import {PATH} from '../05_routes/Routes';
 
 
-type ProfileType = {
-
+type ProfilePropsType = {
+	profile: ProfileType
 }
 
-export const Profile = (props: ProfileType) => {
+export const Profile: FC<ProfilePropsType> = ({profile}) => {
+
+//1234567890-=
 
 
-    return (
-        <div>
-            <h2>Profile</h2>
-            <div className={style.wrap}>
+	return (
+		<div className={style.profileBox}>
+			<h1 className={style.title}>Profile</h1>
+			<div className={style.wrap}>
+				<p className={style.name}>Hello, <span className={style.nameAccent}>{profile.name}</span></p>
+				<p className={style.packs}>You have {profile.publicCardPacksCount}
 
-            </div>
-        </div>
-    );
+				<NavLink to={PATH.PACKS} className={style.packLink}><span className={style.packsLinkText}> packs</span></NavLink>
+				.</p>
+			</div>
+		</div>
+	);
 }

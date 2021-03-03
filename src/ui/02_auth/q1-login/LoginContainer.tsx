@@ -5,7 +5,7 @@ import {AppRootState} from '../../../bll/store';
 import {RequestErrorType, RequestStatusType} from '../../../bll/reducers/app-reducer';
 import {Redirect} from 'react-router-dom';
 import {PATH} from '../../05_routes/Routes';
-import Loader from '../../06_common/Loader/Loader';
+import Loader from '../../06_common/c5-Loader/Loader';
 
 type LoginContainerPropsType = {
   theme?: string
