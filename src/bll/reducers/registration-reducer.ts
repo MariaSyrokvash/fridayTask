@@ -12,8 +12,6 @@ const initialState: InitialStateType = {
 	registrationError: null
 }
 
-console.log(initialState.registrationError, 'initialState.registrationError')
-
 export const registrationReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
 	switch (action.type) {
 		case Registration.SIGN_UP:
@@ -41,13 +39,11 @@ export const signUpTC = (data: SignUpType) => (dispatch: Dispatch<ActionsType>) 
 	registrationAPI.signUp(data)
 		.then((res) => {
 			dispatch(signUpAC(true))
-			console.log(res)
 		})
 		.catch(err => {
 			const error = err.response
 				? err.response.data.error
 				: (err.message + ', more details in the console');
-			console.log(error)
 			dispatch(signUpServerErrorAC(error))
 		})
 		.finally(() => {

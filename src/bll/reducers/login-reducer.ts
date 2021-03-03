@@ -1,35 +1,18 @@
 import {Dispatch} from 'redux'
 import {setAppStatusAC} from './app-reducer';
 import {authAPI, LoginParamsType} from '../../dal/LoginAPI';
-import {ThunkAction} from 'redux-thunk';
-import {AppRootState} from '../store';
+import {setIdProfileAC, setUserProfileAC} from './profile-reducer';
 
 
 enum LOGIN {
 	SET_IS_LOGGED_IN = 'SET_IS_LOGGED_IN',
-	SET_USER_PROFILE = 'SET_USER_PROFILE',
 	SIGN_IN_ERROR = 'SIGN_IN_ERROR'
 }
 
 const initialState: InitialStateType = {
 	isLoggedIn: false,
-	profile: {
-		_id: null,
-		email: null,
-		name: null,
-		avatar: null,
-		publicCardPacksCount: null,
-		created: null,
-		updated: null,
-		isAdmin: null,
-		verified: null,
-		rememberMe: null,
-		error: null
-	},
 	loginError: null
 }
-
-console.log(initialState, 'initialState')
 
 export const loginReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
 	switch (action.type) {
@@ -37,11 +20,6 @@ export const loginReducer = (state: InitialStateType = initialState, action: Act
 			return {
 				...state,
 				isLoggedIn: action.value
-			}
-		case LOGIN.SET_USER_PROFILE:
-			return {
-				...state,
-				profile: action.profile
 			}
 		case LOGIN.SIGN_IN_ERROR:
 			return {
@@ -55,7 +33,6 @@ export const loginReducer = (state: InitialStateType = initialState, action: Act
 
 // actions
 export const setIsLoggedInAC = (value: boolean) => ({type: LOGIN.SET_IS_LOGGED_IN, value} as const)
-export const setUserProfileAC = (profile: ProfileType) => ({type: LOGIN.SET_USER_PROFILE, profile} as const)
 export const signInErrorAC = (error: string) => ({type: LOGIN.SIGN_IN_ERROR, error} as const)
 
 
@@ -67,6 +44,7 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsTyp
 		.then(res => {
 			dispatch(setIsLoggedInAC(true))
 			dispatch(setUserProfileAC(res.data))
+			dispatch(setIdProfileAC(res.data._id))
 		})
 		.catch(err => {
 			const error = err.response
@@ -79,43 +57,22 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsTyp
 		})
 }
 
-export const authMeTC = (): AuthMeThunkType => (dispatch) => {
-	return authAPI.authMe()
-		.then(res => {
-			console.log(res)
-		})
-}
 
 export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
 
 }
 
 
-
 type InitialStateType = {
 	isLoggedIn: boolean
-	profile: ProfileType
 	loginError: null | string
 }
 
-export type ProfileType = {
-	_id: string | null
-	email: string | null
-	name: string | null
-	avatar: string | null
-	publicCardPacksCount: number | null
-	created: string | null
-	updated: string | null
-	isAdmin: boolean | null
-	verified: boolean | null
-	rememberMe: boolean | null
-	error: string | null
-}
 
 type ActionsType =
 	ReturnType<typeof setIsLoggedInAC>
 	| ReturnType<typeof setUserProfileAC>
 	| ReturnType<typeof setAppStatusAC>
 	| ReturnType<typeof signInErrorAC>
+	| ReturnType<typeof setIdProfileAC>
 
-type AuthMeThunkType = ThunkAction<Promise<void>, AppRootState, Dispatch<ActionsType>, ActionsType>

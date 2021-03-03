@@ -1,8 +1,8 @@
 import React, {FC} from 'react';
 import { NavLink } from 'react-router-dom';
-import { ProfileType } from '../../bll/reducers/login-reducer';
 import style from './Profile.module.scss'
 import {PATH} from '../05_routes/Routes';
+import {ProfileType} from '../../bll/reducers/profile-reducer';
 
 
 type ProfilePropsType = {

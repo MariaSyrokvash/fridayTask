@@ -1,8 +1,7 @@
 import {Dispatch} from 'redux';
 import {ThunkAction} from 'redux-thunk';
-import {authAPI} from '../../dal/LoginAPI';
 import {AppRootState} from '../store';
-import {authMeTC} from './login-reducer';
+import {authMeTC} from './profile-reducer';
 
 
 enum APP {
@@ -30,26 +29,23 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
 		case APP.SET_ERROR:
 			return {...state, error: action.error}
 		case APP.SET_INITIALIZED:
-			return {...state, initialized: action.initialized}
+			return {...state, initialized: true}
 		default:
 			return state
 	}
 }
 
-
+//actions
 export const setAppStatusAC = (status: RequestStatusType) => ({type: APP.SET_STATUS, status} as const)
 export const setAppErrorAC = (error: RequestErrorType) => ({type: APP.SET_ERROR, error} as const)
-export const setAppInitialedAC = (initialized: boolean) => ({type: APP.SET_INITIALIZED, initialized} as const)
+export const setAppInitialedAC = () => ({type: APP.SET_INITIALIZED} as const)
 
-
-export const initializedSuccessAC = (value: boolean) => ({type: APP.SET_INITIALIZED, value} as const)
-
-
+//thunks
 export const initializeAppTC = (): ThunkType => (dispatch: Dispatch<ActionsType>) => {
 	const promise = dispatch(authMeTC())
 
 	Promise.all([promise]).then(() => {
-			dispatch(initializedSuccessAC(true))
+			dispatch(setAppInitialedAC())
 	})
 }
 

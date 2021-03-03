@@ -25,7 +25,6 @@ export const RegistrationContainer: FC<RegistrationContainerPropsType> = ({theme
 		return <Loader/>
 	}
 
-	console.log(registrationError)
 	return (
 		<Registration
 			registrationError={registrationError}

@@ -4,15 +4,13 @@ import {Redirect} from 'react-router-dom';
 import {PATH} from '../05_routes/Routes';
 import {useSelector} from 'react-redux';
 import {AppRootState} from '../../bll/store';
-import {ProfileType} from '../../bll/reducers/login-reducer';
+import {ProfileType} from '../../bll/reducers/profile-reducer';
 
 
 export const ProfileContainer = () => {
   const isLoggedIn = useSelector<AppRootState, boolean>(state => state.login.isLoggedIn)
-  const profile = useSelector<AppRootState, ProfileType>(state => state.login.profile)
+  const profile = useSelector<AppRootState, ProfileType>(state => state.profile.profile)
 
-
-  console.log(profile)
 
   if (!isLoggedIn) {
     return <Redirect to={PATH.LOGIN}/>

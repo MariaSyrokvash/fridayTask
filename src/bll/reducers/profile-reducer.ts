@@ -1,71 +1,86 @@
 import {setIsLoggedInAC} from './login-reducer';
+import {Dispatch} from 'redux';
+import {authAPI} from '../../dal/LoginAPI';
+import {ThunkAction} from 'redux-thunk';
+import {AppRootState} from '../store';
 
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const SET_MY_ID = 'SET_MY_ID'
 
-// const initialState: ProfileInitialStateType = {
-// 	profile: {
-// 		name: '',
-// 		_id: '',
-// 		avatar: '',
-// 		created: '',
-// 		updated: '',
-// 		email: '',
-// 		isAdmin: false,
-// 		publicCardPacksCount: 0,
-// 		rememberMe: false,
-// 		verified: false,
-// 		error: ''
-// 	},
-// 	myId: null
-// }
+enum PROFILE {
+	SET_USER_PROFILE = 'SET_USER_PROFILE',
+	SET_MY_ID = 'SET_MY_ID'
+}
 
-// export const profileReducer = (state: ProfileInitialStateType = initialState, action: ActionsType): ProfileInitialStateType => {
-// 	switch (action.type) {
-// 		case SET_USER_PROFILE:
-// 			// return {...state, profile: action.payload}
-// 		case SET_MY_ID: {
-// 			return {
-// 				...state,
-// 				myId: action.myId
-// 			}
-// 		}
-// 		default:
-// 			return state
-// 	}
-// }
+const initialState: ProfileInitialStateType = {
+	profile: {
+		_id: null,
+		email: null,
+		name: null,
+		avatar: null,
+		publicCardPacksCount: null,
+		created: null,
+		updated: null,
+		isAdmin: null,
+		verified: null,
+		rememberMe: null,
+		error: null
+	},
+	myId: null
+}
+
+export const profileReducer = (state: ProfileInitialStateType = initialState, action: ActionsType): ProfileInitialStateType => {
+	switch (action.type) {
+		case PROFILE.SET_USER_PROFILE:
+			return {
+				...state,
+				profile: action.profile
+			}
+		case PROFILE.SET_MY_ID: {
+			return {
+				...state,
+				myId: action.myId
+			}
+		}
+		default:
+			return state
+	}
+}
 
 // actions
-// export const setUserProfileAC = (payload: ProfileType) => {
-// 	return {
-// 		type: SET_USER_PROFILE,
-// 		payload
-// 	} as const
-// }
-export const setMyIdAC = (myId: string | null) => ({type: SET_MY_ID, myId} as const)
+export const setUserProfileAC = (profile: ProfileType) => ({type: PROFILE.SET_USER_PROFILE, profile} as const)
+export const setIdProfileAC = (myId: string | null) => ({type: PROFILE.SET_MY_ID, myId} as const)
 
 //thunks
-// export const setProfileTC = () => (dispatch: Dispatch<ActionsType>) => {
-// 	return profileAPI.getProfile()
-// 		.then(res => {
-// 		    dispatch(setMyIdAC(res.data._id))
-// 				dispatch(setUserProfileAC(res.data))
-// 				dispatch(setIsLoggedInAC(true))
-// 			}
-// 		)
-// 		.catch(rej => {
-// 			dispatch(setIsLoggedInAC(false))
-// 		})
-// }
+export const authMeTC = (): AuthMeThunkType => (dispatch) => {
+	return authAPI.authMe()
+		.then(res => {
+			if (res.status === 200) {
+				dispatch(setIsLoggedInAC(true))
+				dispatch(setUserProfileAC(res.data))
+			}
+		})
+}
 
-
+export type ProfileType = {
+	_id: string | null
+	email: string | null
+	name: string | null
+	avatar: string | null
+	publicCardPacksCount: number | null
+	created: string | null
+	updated: string | null
+	isAdmin: boolean | null
+	verified: boolean | null
+	rememberMe: boolean | null
+	error: string | null
+}
 
 export type ProfileInitialStateType = {
-	// profile: ProfileType
+	profile: ProfileType
 	myId: string | null
 }
 
-type ActionsType = ReturnType<typeof setMyIdAC>
+type ActionsType = ReturnType<typeof setIdProfileAC>
 	| ReturnType<typeof setIsLoggedInAC>
-	// | ReturnType<typeof setUserProfileAC>
+	| ReturnType<typeof setUserProfileAC>
 
+type AuthMeThunkType = ThunkAction<Promise<void>, AppRootState, Dispatch<ActionsType>, ActionsType>

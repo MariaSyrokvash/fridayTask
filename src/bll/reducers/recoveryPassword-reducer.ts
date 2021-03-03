@@ -1,7 +1,5 @@
 import {Dispatch} from 'redux';
 import {passwordRecoveryAPI} from '../../dal/PasswordRecoveryAPI';
-import {authAPI, LoginParamsType} from '../../dal/LoginAPI';
-import {setIsLoggedInAC, setUserProfileAC, signInErrorAC} from './login-reducer';
 
 enum RECOVERY {
 	SET_ERROR = 'SET_ERROR',
