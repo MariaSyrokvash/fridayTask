@@ -14,6 +14,8 @@ function App() {
 	const dispatch = useDispatch()
 	const initialized = useSelector<AppRootState, boolean>(state => state.app.initialized)
 
+	console.log(initialized, 'initialized')
+
 	useEffect(() => {
 		if (!initialized) {
 			dispatch(initializeAppTC())
@@ -21,7 +23,7 @@ function App() {
 	}, [initialized, dispatch])
 
 
-	if (!initialized) {
+	if (!initialized ) {
 		return <InitializingLoader />
 	}
 

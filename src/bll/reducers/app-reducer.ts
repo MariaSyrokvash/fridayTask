@@ -43,9 +43,11 @@ export const setAppInitialedAC = () => ({type: APP.SET_INITIALIZED} as const)
 //thunks
 export const initializeAppTC = (): ThunkType => (dispatch: Dispatch<ActionsType>) => {
 	const promise = dispatch(authMeTC())
+	console.log(promise)
 
 	Promise.all([promise]).then(() => {
-			dispatch(setAppInitialedAC())
+		console.log(promise)
+		dispatch(setAppInitialedAC())
 	})
 }
 

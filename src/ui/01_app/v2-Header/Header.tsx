@@ -1,7 +1,8 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Redirect} from 'react-router-dom';
 import {PATH} from '../../05_routes/Routes';
 import style from './Header.module.scss'
+import {Logout} from '../../02_auth/q2-logout/Logout';
 
 type MenuType = {
 	theme?: string
@@ -40,6 +41,7 @@ export const Header: React.FC<MenuType> = ({theme}) => {
 									 activeClassName={style.selected} to={PATH.PACKS}>Packs</NavLink>
 				</li>
 			</ul>
+			<Logout />
 			{/*<div className={style.navItem}>*/}
 			{/*    <NavLink className={style.link} to={PATH.CARDS}>Cards</NavLink>*/}
 			{/*</div>*/}

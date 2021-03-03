@@ -13,7 +13,7 @@ type LoginContainerPropsType = {
 
 export const LoginContainer: FC<LoginContainerPropsType> = ({theme}) => {
   const isLoggedIn = useSelector<AppRootState, boolean>(state => state.login.isLoggedIn)
-  const status = useSelector<AppRootState, RequestStatusType>(state => state.app.status)
+  const status = useSelector<AppRootState, RequestStatusType>(state => state.login.loginStatus)
   const loginError = useSelector<AppRootState, RequestErrorType>(state => state.login.loginError)
 
   if (isLoggedIn) return <Redirect to={PATH.PROFILE}/>

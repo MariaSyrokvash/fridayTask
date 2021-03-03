@@ -7,7 +7,7 @@ const instance = axios.create({
 })
 
 
-export const searchPacksAPI = {
+export const packsAPI = {
 	getPacksData: async (
 		packName: string, min: number, max: number, sortPacks: string, page: number = 1 , pageCount: number = 15, myId: string | null
 	) => {

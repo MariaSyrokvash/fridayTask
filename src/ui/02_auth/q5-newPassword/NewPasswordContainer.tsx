@@ -11,17 +11,14 @@ type NewPasswordContainerPropsType = {
 }
 
 export const NewPasswordContainer:FC<NewPasswordContainerPropsType> = ({theme}) => {
-  const status = useSelector<AppRootState, RequestStatusType>(state => state.app.status)
+  const status = useSelector<AppRootState, RequestStatusType>(state => state.newPassword.status)
   const successMessage = useSelector<AppRootState, string>(state => state.newPassword.successMessage)
   const errorMessage = useSelector<AppRootState, string>(state => state.newPassword.error)
 
-  if (status === 'loading') {
-    return <Loader/>
-  }
 
   return (
     <>
-      <NewPassword theme={theme} successMessage={successMessage} errorMessage={errorMessage}/>
+      <NewPassword theme={theme} successMessage={successMessage} errorMessage={errorMessage} status={status}/>
     </>
   );
 }

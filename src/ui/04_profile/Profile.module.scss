@@ -34,3 +34,18 @@
   text-decoration: none;
   color: $accent-color;
 }
+
+.avatar {
+  width: 150px;
+  height: 150px;
+}
+
+.editBox {
+  margin-left: auto;
+}
+
+.editIcon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}

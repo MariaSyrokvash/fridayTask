@@ -3,8 +3,9 @@ import s from './PasswordRecovery.module.scss';
 import {useFormik} from 'formik';
 import SuperButton from '../../06_common/c2-SuperButton/SuperButton';
 import SuperInputText from '../../06_common/c1-SuperInputText/SuperInputText';
-import {sendEmailTC} from '../../../bll/reducers/recoveryPassword-reducer';
+import {RequestStatusType, sendEmailTC} from '../../../bll/reducers/recoveryPassword-reducer';
 import {useDispatch} from 'react-redux';
+import Loader from '../../06_common/c5-Loader/Loader';
 
 type  FormikErrorType = {
 	email?: string
@@ -14,9 +15,10 @@ type PasswordRecoveryPropsType = {
 	theme?: string
 	recoveryError: string | null
 	recoverySuccess: string | null
+	status: RequestStatusType
 }
 
-export const PasswordRecovery: FC<PasswordRecoveryPropsType> = ({theme,recoveryError,recoverySuccess}) => {
+export const PasswordRecovery: FC<PasswordRecoveryPropsType> = ({theme,recoveryError,recoverySuccess, status}) => {
 	const dispatch = useDispatch()
 
 	const formik = useFormik({
@@ -33,12 +35,11 @@ export const PasswordRecovery: FC<PasswordRecoveryPropsType> = ({theme,recoveryE
 			return errors;
 		},
 		onSubmit: values => {
-			debugger
 			dispatch(sendEmailTC(values.email))
-			// alert(JSON.stringify(values));
 			formik.resetForm()
 		},
 	})
+
 
 	return (
 		<div className={s.box}>
@@ -56,6 +57,7 @@ export const PasswordRecovery: FC<PasswordRecoveryPropsType> = ({theme,recoveryE
 				</div>
 
 				<SuperButton>Send</SuperButton>
+				{status === 'loading' ? <Loader /> : null}
 			</form>
 		</div>
 	);

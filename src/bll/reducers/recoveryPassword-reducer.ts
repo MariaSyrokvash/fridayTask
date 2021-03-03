@@ -46,15 +46,13 @@ export const recoveryPasswordReducer = (state: InitialStateType = initialState, 
 // actions
 export const setErrorAC = (error: string) => ({type: RECOVERY.SET_ERROR, error} as const)
 export const setSuccessAC = (recoverySuccess: string) => ({type: RECOVERY.SET_SUCCESS, recoverySuccess} as const)
-export const setAppStatusAC = (status: RequestStatusType) => ({type: RECOVERY.SET_STATUS, status} as const)
+export const setRecoveryStatusAC = (status: RequestStatusType) => ({type: RECOVERY.SET_STATUS, status} as const)
 
 //thunks
 export const sendEmailTC = (email: string) => (dispatch: Dispatch) => {
-	debugger
-	dispatch(setAppStatusAC('loading'))
+	dispatch(setRecoveryStatusAC('loading'))
 	passwordRecoveryAPI.sendEmail(email)
 		.then(res => {
-			console.log(res.data)
 			if (res.status === 200) {
 				dispatch(setSuccessAC(res.data.info))
 			}
@@ -66,7 +64,7 @@ export const sendEmailTC = (email: string) => (dispatch: Dispatch) => {
 			dispatch(setErrorAC(error))
 		})
 		.finally(() => {
-			dispatch(setAppStatusAC('succeeded'))
+			dispatch(setRecoveryStatusAC('succeeded'))
 		})
 }
 
@@ -74,4 +72,4 @@ export const sendEmailTC = (email: string) => (dispatch: Dispatch) => {
 
 type ActionsType = ReturnType<typeof setErrorAC>
 	| ReturnType<typeof setSuccessAC>
-	| ReturnType<typeof setAppStatusAC>
+	| ReturnType<typeof setRecoveryStatusAC>

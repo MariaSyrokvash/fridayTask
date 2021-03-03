@@ -6,6 +6,7 @@ import {loginReducer} from './reducers/login-reducer';
 import {recoveryPasswordReducer} from './reducers/recoveryPassword-reducer';
 import {newPasswordReducer} from './reducers/newPassword-reducer';
 import {profileReducer} from './reducers/profile-reducer';
+import {packsReducer} from './reducers/packs-reducer';
 
 
 
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
 	login: loginReducer,
 	recoveryPass: recoveryPasswordReducer,
 	newPassword: newPasswordReducer,
-	profile: profileReducer
+	profile: profileReducer,
+	packs: packsReducer
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunk))

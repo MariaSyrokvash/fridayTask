@@ -6,11 +6,14 @@ import {useDispatch} from 'react-redux';
 import {useFormik} from 'formik';
 import {sendNewPasswordTC} from '../../../bll/reducers/newPassword-reducer';
 import {useParams} from 'react-router-dom';
+import Loader from '../../06_common/c5-Loader/Loader';
+import {RequestStatusType} from '../../../bll/reducers/recoveryPassword-reducer';
 
 type NewPasswordPropsType = {
 	theme?: string
 	successMessage: string
 	errorMessage: string
+	status: RequestStatusType
 }
 
 type FormikErrorType = {
@@ -22,7 +25,7 @@ type ParamTypes = {
 	token: string
 }
 
-export const NewPassword: FC<NewPasswordPropsType> = ({theme, successMessage,errorMessage}) => {
+export const NewPassword: FC<NewPasswordPropsType> = ({theme, successMessage,errorMessage,status}) => {
 	const dispatch = useDispatch()
 	const {token} = useParams<ParamTypes>()
 
@@ -47,9 +50,7 @@ export const NewPassword: FC<NewPasswordPropsType> = ({theme, successMessage,err
 			return errors;
 		},
 		onSubmit: values => {
-			debugger
 			dispatch(sendNewPasswordTC(values.password, token))
-			// alert(JSON.stringify(values));
 			formik.resetForm()
 		},
 	})
@@ -78,6 +79,7 @@ export const NewPassword: FC<NewPasswordPropsType> = ({theme, successMessage,err
 					}
 				</div>
 				<SuperButton>Send</SuperButton>
+				{status === 'loading' ? <Loader /> : null}
 			</form>
 		</div>
 	);

@@ -22,7 +22,9 @@
 }
 
 .btnBox {
+  display: flex;
+  align-items: center;
   position: absolute;
-  right: 10px;
-  top: 15px;
+  height: 79px;
+  right: 1%;
 }
