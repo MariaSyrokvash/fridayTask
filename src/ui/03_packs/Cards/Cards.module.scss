@@ -1,0 +1,40 @@
+@import "src/ui/06_common/styles/colors/colors";
+
+.cardBox {
+  position: relative;
+}
+
+.backBtn {
+  position: absolute;
+  text-transform: uppercase;
+  left: 0;
+  display: flex;
+  text-decoration: none;
+  background-color: $accent-color;
+  color: $light-theme-text;
+  padding: 7px 7px;
+  font-weight: 500;
+  border-radius: 30px;
+  margin-left: auto;
+}
+
+.addCardBtn {
+  background-color: $accent-color !important;
+  border: none !important;
+  color: #ffffff !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 30px;
+  font-size: 14px;
+  margin: 0 auto 30px;
+}
+
+.addCardBtn:disabled {
+  background-color: $gray !important;
+}
+
+.addCardLink {
+  text-decoration: none;
+}

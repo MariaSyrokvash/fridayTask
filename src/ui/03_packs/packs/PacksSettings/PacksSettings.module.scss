@@ -1,0 +1,64 @@
+@import "src/ui/06_common/styles/colors/colors";
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.settingsBtnBox {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 40%;
+}
+
+.addBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 30px;
+  font-size: 14px;
+}
+
+.settingsBtn {
+  background-color: $gray !important;
+  border: none !important;
+  color: $light-theme-bg !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 30px;
+  font-size: 14px;
+}
+
+.settingsBtnActive {
+  background-color: $accent-color !important;
+  border: none !important;
+  color: $light-theme-bg !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 30px;
+  font-size: 14px;
+}
+
+.pagination {
+  display: flex;
+  list-style: none;
+}
+
+.pagination li {
+  padding: 0 5px;
+  cursor: pointer;
+  border: 1px solid $dark-theme-text;
+}
+
+.addPack {
+  text-decoration: none;
+}

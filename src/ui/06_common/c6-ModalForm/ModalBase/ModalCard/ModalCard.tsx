@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FC} from 'react'
-import s from './ModalCard.module.css'
+import s from './ModalCard.module.scss'
 import {useParams} from 'react-router-dom';
 import SuperButton from '../../../c2-SuperButton/SuperButton';
 import SuperInputText from '../../../c1-SuperInputText/SuperInputText';
@@ -12,6 +12,7 @@ type PropsType = {
 	onChangeTextSecond: (value: string) => void
 	addTextHandler: (id: string, value1: string, value2: string) => void
 	title: string
+	theme?: string
 }
 
 export const ModalCard: FC<PropsType> = ({
@@ -20,7 +21,7 @@ export const ModalCard: FC<PropsType> = ({
 																					 onChangeTextFirst,
 																					 onChangeTextSecond,
 																					 addTextHandler,
-																					 title, inputSecond
+																					 title, inputSecond,theme
 																				 }) => {
 	const paramsCard = useParams<{ cardId: string }>()
 	const params = useParams<{ packId: string }>()
@@ -34,7 +35,6 @@ export const ModalCard: FC<PropsType> = ({
 	}
 
 	const successHandler = () => {
-
 		if (paramsCard.cardId) {
 			addTextHandler(paramsCard.cardId, inputFirst, inputSecond)
 		} else if (params.packId) {
@@ -44,24 +44,23 @@ export const ModalCard: FC<PropsType> = ({
 
 
 	return (
-		<>
-			<div className={s.wrapper}>
-				<div className={s.modal}>
-					<div className={s.closeBtnWrapper}>
-						<SuperButton onClick={closeModal} className={s.btnClose}>&#x274C;</SuperButton>
-					</div>
-					<div className={s.title}>{title}</div>
-					<div className={s.formWrapper}>
-						<SuperInputText onChange={onChangeCallbackForFirstInput} className={s.input} value={inputFirst}
-														placeholder='question'/>
-						<SuperInputText onChange={onChangeCallbackForSecondInput} className={s.input} value={inputSecond}
-														placeholder='answer'/>
-						<SuperButton className={s.sendBtn} onClick={successHandler}
-												 disabled={!(inputFirst || inputSecond)}>Ok</SuperButton>
-					</div>
+		<div className={s.wrapper}>
+			<div className={`${s.modal} ${theme === 'light' ? s.light : s.dark}`}>
+				<div className={s.closeBtnWrapper}>
+					<SuperButton onClick={closeModal} className={s.btnClose}><span
+						className={`${s.closeIcon} ${theme === 'light' ? s.light : s.dark}`}>&times;</span></SuperButton>
+				</div>
+				<div className={s.title}>{title}</div>
+				<div className={s.formWrapper}>
+					<SuperInputText onChange={onChangeCallbackForFirstInput} inputClassName={s.input} value={inputFirst}
+													placeholder='question'/>
+					<SuperInputText onChange={onChangeCallbackForSecondInput} inputClassName={s.input} value={inputSecond}
+													placeholder='answer'/>
+					<SuperButton className={s.successBtn} onClick={successHandler}
+											 disabled={!(inputFirst || inputSecond)}>Ok</SuperButton>
 				</div>
 			</div>
-		</>
+		</div>
 	)
 }
 

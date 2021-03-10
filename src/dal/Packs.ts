@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {PackType} from '../bll/reducers/packs-reducer';
 
 const instance = axios.create({
 	baseURL: 'https://neko-back.herokuapp.com/2.0/',
@@ -11,7 +12,7 @@ export const packsAPI = {
 	getPacksData: async (
 		packName: string, min: number, max: number, sortPacks: string, page: number = 1 , pageCount: number = 15, myId: string | null
 	) => {
-		const response = await instance.get(`cards/pack?pageCount=${pageCount}&page=${page}&packName=${packName}&sortPacks=${sortPacks}&min=${min}&max=${max}&user_id=${myId === null ? '' : myId}`)
+		const response = await instance.get<ResponseGetPacksType>(`cards/pack?pageCount=${pageCount}&page=${page}&packName=${packName}&sortPacks=${sortPacks}&min=${min}&max=${max}&user_id=${myId === null ? '' : myId}`)
 		return response.data
 	},
 	addNewPack: async (newPack: any) => {
@@ -26,4 +27,16 @@ export const packsAPI = {
 		const response = await instance.put('cards/pack', {cardsPack: updatePack})
 		return response.data
 	}
+}
+
+
+export type ResponseGetPacksType = {
+	cardPacks: Array<PackType>
+	cardPacksTotalCount: number
+	minCardsCount: number | null
+	maxCardsCount: number | null
+	page: number | null
+	pageCount: number | null
+	sortPacks: string
+	packUserId: string
 }

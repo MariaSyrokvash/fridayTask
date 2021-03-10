@@ -6,6 +6,8 @@ import SuperInputText from '../../06_common/c1-SuperInputText/SuperInputText';
 import {RequestStatusType, sendEmailTC} from '../../../bll/reducers/recoveryPassword-reducer';
 import {useDispatch} from 'react-redux';
 import Loader from '../../06_common/c5-Loader/Loader';
+import {toast, Toaster} from 'react-hot-toast';
+import {setAppInitialedAC} from '../../../bll/reducers/app-reducer';
 
 type  FormikErrorType = {
 	email?: string
@@ -18,7 +20,7 @@ type PasswordRecoveryPropsType = {
 	status: RequestStatusType
 }
 
-export const PasswordRecovery: FC<PasswordRecoveryPropsType> = ({theme,recoveryError,recoverySuccess, status}) => {
+export const PasswordRecovery: FC<PasswordRecoveryPropsType> = ({theme, recoveryError, recoverySuccess, status}) => {
 	const dispatch = useDispatch()
 
 	const formik = useFormik({
@@ -34,19 +36,25 @@ export const PasswordRecovery: FC<PasswordRecoveryPropsType> = ({theme,recoveryE
 
 			return errors;
 		},
-		onSubmit: values => {
+		onSubmit: (values) => {
 			dispatch(sendEmailTC(values.email))
 			formik.resetForm()
+
 		},
 	})
 
 
 	return (
 		<div className={s.box}>
+			<Toaster/>
 			<h1 className={s.recTitle}>Recover Password</h1>
 			<p className={s.recSubTitle}>Please, enter your email</p>
-			{recoveryError ? <div className={s.recError}>{recoveryError}</div> : null}
-			{recoverySuccess ? <div className={s.recSuccess}>{recoverySuccess}</div> : null}
+			{/*/!*{recoveryError ? <div className={s.recError}>{recoveryError}</div> : null}*!/*/}
+			{/*{recoveryError && toast.error(recoveryError)}*/}
+			{/*/!*{recoverySuccess ? <div className={s.recSuccess}>{recoverySuccess}</div> : null}*!/*/}
+			{/*{recoverySuccess && toast.success(recoverySuccess)}*/}
+
+
 			<form onSubmit={formik.handleSubmit}>
 				<div className={s.recInner}>
 					<SuperInputText theme={theme} placeholder='e-mail' type="email" {...formik.getFieldProps('email')}/>
@@ -57,7 +65,7 @@ export const PasswordRecovery: FC<PasswordRecoveryPropsType> = ({theme,recoveryE
 				</div>
 
 				<SuperButton>Send</SuperButton>
-				{status === 'loading' ? <Loader /> : null}
+				{status === 'loading' ? <Loader/> : null}
 			</form>
 		</div>
 	);

@@ -10,18 +10,17 @@ type MenuType = {
 
 export const Header: React.FC<MenuType> = ({theme}) => {
 
-
 	return (
 		<nav className={style.navBox}>
 			<ul className={style.navList}>
 				<li className={style.navItem}>
 					<NavLink activeClassName={style.selected}
 									 className={`${style.link} ${theme === 'dark' ? style.dark : style.light}`}
-									 to={PATH.REGISTRATION}>Registration</NavLink>
+									 to={PATH.REGISTRATION}>Sign up</NavLink>
 				</li>
 				<li className={style.navItem}>
 					<NavLink className={`${style.link} ${theme === 'dark' ? style.dark : style.light}`}
-									 activeClassName={style.selected} to={PATH.LOGIN}>Login</NavLink>
+									 activeClassName={style.selected} to={PATH.LOGIN}>Sign in</NavLink>
 				</li>
 				<li className={style.navItem}>
 					<NavLink className={`${style.link} ${theme === 'dark' ? style.dark : style.light}`}

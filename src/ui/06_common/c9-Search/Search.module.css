@@ -1,8 +1,0 @@
-.searchBtn {
-	cursor: pointer;
-}
-
-.searchBtn:disabled {
-	opacity: 0.3;
-	cursor: auto;
-}

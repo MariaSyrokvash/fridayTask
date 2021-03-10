@@ -1,0 +1,44 @@
+@import "src/ui/06_common/styles/colors/colors";
+
+.searchBox {
+  display: flex;
+  overflow: auto;
+  align-items: center;
+}
+
+.searchInput {
+  text-overflow: ellipsis;
+  padding: 10px 10px 10px -70px !important;
+}
+
+.searchBtn {
+  margin: 0 0 0 -60px;
+  width: 60px;
+  height: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.searchBtnLight {
+  border: 1px solid $light-theme-text !important;
+}
+
+.searchBtnDark{
+  border: 1px solid $light-theme-bg !important;
+}
+
+.searchBtn:disabled {
+  opacity: 0.3;
+  cursor: auto;
+}
+
+.searchIcon {
+  width: 30px;
+  height: 30px;
+}
+
+.search {
+  padding: 0 0 0 10px;
+}

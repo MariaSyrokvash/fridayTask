@@ -1,0 +1,82 @@
+@import "src/ui/06_common/styles/colors/colors";
+
+.regWrapper {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.regBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.regInner {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.regTitle {
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+
+.regSubTitle {
+  font-size: 16px;
+  margin: 0;
+  padding-bottom: 10px;
+}
+
+.regError {
+  margin: 0 0 20px;
+  font-size: 16px;
+  color: $error-color;
+}
+
+.error {
+  position: absolute;
+  left: 50%;
+  bottom: -55%;
+  transform: translate(-50%, -50%);
+  color: $error-color;
+  font-size: 14px;
+}
+
+.link {
+  margin-top: 20px;
+  //text-decoration: none;
+}
+
+.link.dark {
+  color: $dark-theme-text;
+}
+
+.link.light {
+  color: $light-theme-text;
+}
+
+.link:hover {
+  color: $accent-color;
+}
+
+.passConfIcon {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+
+.passIcon {
+  position: absolute;
+  bottom: 14px;
+  right: 16px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}

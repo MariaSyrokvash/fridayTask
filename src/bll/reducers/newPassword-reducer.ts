@@ -1,5 +1,6 @@
 import {Dispatch} from 'redux';
 import {newPasswordAPI} from '../../dal/NewPasswordAPI';
+import {toast} from 'react-hot-toast';
 
 
 enum NEW_PASS {
@@ -57,12 +58,15 @@ export const sendNewPasswordTC = (newPassword: string, token: string) => (dispat
 		.then(res => {
 			console.log(res.data.message)
 			dispatch(setSuccessAC(res.data.message))
+			toast.success(res.data.message);
 		})
 		.catch(err => {
 			const error = err.response
 				? err.response.data.error
 				: (err.message + ', more details in the console')
 			dispatch(setErrorAC(error))
+			console.log(error)
+			toast.error(error);
 		})
 		.finally(() => {
 			dispatch(setAppStatusAC('succeeded'))

@@ -1,5 +1,6 @@
 import {Dispatch} from 'redux';
 import {passwordRecoveryAPI} from '../../dal/PasswordRecoveryAPI';
+import {toast} from 'react-hot-toast';
 
 enum RECOVERY {
 	SET_ERROR = 'SET_ERROR',
@@ -51,10 +52,11 @@ export const setRecoveryStatusAC = (status: RequestStatusType) => ({type: RECOVE
 //thunks
 export const sendEmailTC = (email: string) => (dispatch: Dispatch) => {
 	dispatch(setRecoveryStatusAC('loading'))
-	passwordRecoveryAPI.sendEmail(email)
+	return passwordRecoveryAPI.sendEmail(email)
 		.then(res => {
 			if (res.status === 200) {
 				dispatch(setSuccessAC(res.data.info))
+				toast.success(res.data.info);
 			}
 		})
 		.catch(err => {
@@ -62,6 +64,7 @@ export const sendEmailTC = (email: string) => (dispatch: Dispatch) => {
 				? err.response.data.error
 				: (err.message + ', more details in the console')
 			dispatch(setErrorAC(error))
+			toast.error(error);
 		})
 		.finally(() => {
 			dispatch(setRecoveryStatusAC('succeeded'))

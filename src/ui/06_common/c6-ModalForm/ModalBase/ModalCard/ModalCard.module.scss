@@ -1,0 +1,94 @@
+@import "src/ui/06_common/styles/colors/colors";
+
+.wrapper {
+  font-family: "Jost", sans-serif;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(40, 44, 52, 0.8);
+  z-index: 1000;
+}
+
+.modal {
+  max-width: 22vw;
+  min-width: 320px;
+  height: auto;
+  border-radius: 10px;
+  padding: 20px
+}
+
+.modal.light {
+  background: $light-theme-bg;
+  border: 2px solid $gray;
+}
+
+.modal.dark {
+  background: $dark-theme-bg;
+  border: 2px solid $gray;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 500;
+  margin: 0 0 20px;
+}
+
+.closeBtnWrapper {
+  height: 40px;
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+
+.btnClose {
+  border: none !important;
+  background: none !important;
+  width: auto !important;
+  margin: 0;
+  padding: 0;
+  outline: none !important;
+  cursor: pointer;
+}
+
+.closeIcon {
+  font-size: 32px;
+}
+
+.closeIcon.dark {
+  color: $dark-theme-text;
+}
+
+.closeIcon.light {
+  color: $light-theme-text;
+}
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.input {
+  text-overflow: ellipsis;
+  height: 35px !important;
+  padding: 0 20px 0 20px;
+  margin: 0 auto 10px;
+}
+
+.successBtn {
+  display: flex;
+  background-color: $dark-theme-bg !important;
+  color: $dark-theme-text !important;
+  border: 1px solid $dark-theme-text !important;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 35px !important;
+  margin: 0 auto;
+  cursor: pointer !important;;
+}
