@@ -3,7 +3,6 @@ import {PasswordRecovery} from './PasswordRecovery';
 import {useSelector} from 'react-redux';
 import {AppRootState} from '../../../bll/store';
 import {RequestErrorType, RequestStatusType} from '../../../bll/reducers/app-reducer';
-import Loader from '../../06_common/c5-Loader/Loader';
 
 type PasswordRecoveryContainerPropsType = {
 	theme?: string

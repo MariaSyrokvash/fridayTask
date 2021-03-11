@@ -8,6 +8,10 @@ import {NavLink} from 'react-router-dom';
 import {PATH} from '../../05_routes/Routes';
 import {CardType, getCardsTC} from '../../../bll/reducers/cards-reducer';
 import {AppRootState} from '../../../bll/store';
+import eye from '../../02_auth/q3-signUp/image/eye.svg';
+import train from './../../03_packs/Packs/image/train.svg';
+import Loader from '../c5-Loader/Loader';
+import {RequestStatusType} from '../../../bll/reducers/app-reducer';
 
 type TablePropsType = {
 	headerElement: Array<string>
@@ -18,6 +22,7 @@ type TablePropsType = {
 export const Table: FC<TablePropsType> = ({packs, headerElement, cards}) => {
 	const dispatch = useDispatch()
 	const myId = useSelector<AppRootState, string | null>(state => state.profile.profile._id)
+	const status = useSelector<AppRootState, RequestStatusType>(state => state.packs.status)
 
 	const renderHeader = (headerElement: Array<string>, cards?: Array<CardType>) => {
 		if (cards && !cards.length) return
@@ -25,7 +30,6 @@ export const Table: FC<TablePropsType> = ({packs, headerElement, cards}) => {
 			return <th key={index}>{key.toUpperCase()}</th>
 		})
 	}
-
 
 	const goToCardHandler = (packId: string) => {
 		dispatch(setPackCardsIdAC(packId))
@@ -43,11 +47,13 @@ export const Table: FC<TablePropsType> = ({packs, headerElement, cards}) => {
 					<td>{name}</td>
 					<td>{cardsCount}</td>
 					<td>{time}</td>
-					<td><NavLink className={s.cardLink} onClick={() => goToCardHandler(_id)} to={PATH.CARDS + `/${_id}`}>
-						Go to cards</NavLink>
+					<td>
+						<NavLink className={s.cardLink} onClick={() => goToCardHandler(_id)} to={PATH.CARDS + `/${_id}`}>
+						<img src={eye} className={s.cardIcon}/>
+					</NavLink>
 					</td>
 					<td><NavLink className={s.cardLink} onClick={() => goToCardHandler(_id)}
-											 to={PATH.TRAIN + `/${_id}`}>Train</NavLink></td>
+											 to={PATH.TRAIN + `/${_id}`}><img src={train} className={s.trainIcon}/></NavLink></td>
 					<td className={s.operation}>
 						{
 							user_id === myId &&
@@ -96,6 +102,7 @@ export const Table: FC<TablePropsType> = ({packs, headerElement, cards}) => {
 
 	return (
 		<div className={s.tableBox}>
+			{status === 'loading' && <Loader />}
 			<table className={s.table}>
 				<thead>
 				<tr>

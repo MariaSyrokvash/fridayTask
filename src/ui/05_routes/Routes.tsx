@@ -9,6 +9,7 @@ import {NewPasswordContainer} from '../02_auth/q5-newPassword/NewPasswordContain
 import {PacksContainer} from '../03_packs/Packs/PacksContainer';
 import {CardsContainer} from '../03_packs/Cards/CardsContainer';
 import { SignUpContainer } from '../02_auth/q3-signUp/SignUpContainer';
+import {TrainContainer} from '../07_train/TrainContainer';
 
 export const PATH = {
 	LOGIN: '/login',
@@ -41,7 +42,7 @@ export const Routes: FC<RoutesPropsType> = ({theme}) => {
 				<Route path={PATH.TEST} render={() => <Test/>}/>
 				<Route path={PATH.PACKS} render={() => <PacksContainer theme={theme}/>}/>
 				<Route path={PATH.CARDS + `/:id`} render={() => <CardsContainer theme={theme}/>}/>
-				<Route path={PATH.TRAIN + `/:id`} render={() => <CardsContainer />}/>
+				<Route path={PATH.TRAIN + `/:id`} render={() => <TrainContainer theme={theme}/>}/>
 				<Route render={() => <Error404/>}/>
 			</Switch>
 		</div>

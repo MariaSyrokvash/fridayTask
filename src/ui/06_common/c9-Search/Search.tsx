@@ -8,20 +8,21 @@ import searchIcon from './image/searchIcon.svg';
 
 type SearchPropsType = {
 	theme?: string
+	searchName: string
+	setSearchName: (value: string) => void
 }
 
-export const Search: FC<SearchPropsType> = ({theme}) => {
-	const [value, setValue] = useState<string>('')
+export const Search: FC<SearchPropsType> = ({theme, searchName, setSearchName}) => {
 	const dispatch = useDispatch()
 
 	const onChangeInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
-		event.currentTarget.value && setValue(event.currentTarget.value)
+		event.currentTarget.value && setSearchName(event.currentTarget.value)
 		event.currentTarget.value && dispatch(setSearchNamePacksAC(event.currentTarget.value))
 	}
 
 	const onSearchHandler = () => {
 		dispatch(getPacksTC())
-		setValue('')
+		setSearchName('')
 	}
 
 	const onKeyPressHandler = (e: any) => e.key === 'Enter' && onSearchHandler();
@@ -29,7 +30,7 @@ export const Search: FC<SearchPropsType> = ({theme}) => {
 	return (
 		<div className={s.searchBox}>
 			<SuperInputText onKeyPress={onKeyPressHandler} onChange={onChangeInputHandler}
-											placeholder={'search packs'} theme={theme}  inputClassName={s.search}/>
+											placeholder={'search packs'} theme={theme}  inputClassName={s.search} value={searchName}/>
 
 
 			<SuperButton className={`${s.searchBtn} ${theme === 'dark'? s.searchBtnDark: s.searchBtnLight}`} onClick={onSearchHandler}>

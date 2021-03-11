@@ -1,24 +1,29 @@
 {
   "files": {
-    "main.css": "/fridayTask/static/css/main.f8fccf36.chunk.css",
-    "main.js": "/fridayTask/static/js/main.d56809af.chunk.js",
-    "main.js.map": "/fridayTask/static/js/main.d56809af.chunk.js.map",
-    "runtime-main.js": "/fridayTask/static/js/runtime-main.aff9a311.js",
-    "runtime-main.js.map": "/fridayTask/static/js/runtime-main.aff9a311.js.map",
-    "static/js/2.d4adb32b.chunk.js": "/fridayTask/static/js/2.d4adb32b.chunk.js",
-    "static/js/2.d4adb32b.chunk.js.map": "/fridayTask/static/js/2.d4adb32b.chunk.js.map",
-    "static/js/3.2807d720.chunk.js": "/fridayTask/static/js/3.2807d720.chunk.js",
-    "static/js/3.2807d720.chunk.js.map": "/fridayTask/static/js/3.2807d720.chunk.js.map",
+    "main.css": "/fridayTask/static/css/main.bdcb89aa.chunk.css",
+    "main.js": "/fridayTask/static/js/main.53d46203.chunk.js",
+    "main.js.map": "/fridayTask/static/js/main.53d46203.chunk.js.map",
+    "runtime-main.js": "/fridayTask/static/js/runtime-main.1ec6f670.js",
+    "runtime-main.js.map": "/fridayTask/static/js/runtime-main.1ec6f670.js.map",
+    "static/js/2.ed32632b.chunk.js": "/fridayTask/static/js/2.ed32632b.chunk.js",
+    "static/js/2.ed32632b.chunk.js.map": "/fridayTask/static/js/2.ed32632b.chunk.js.map",
+    "static/js/3.8159831c.chunk.js": "/fridayTask/static/js/3.8159831c.chunk.js",
+    "static/js/3.8159831c.chunk.js.map": "/fridayTask/static/js/3.8159831c.chunk.js.map",
     "index.html": "/fridayTask/index.html",
-    "static/css/main.f8fccf36.chunk.css.map": "/fridayTask/static/css/main.f8fccf36.chunk.css.map",
-    "static/js/2.d4adb32b.chunk.js.LICENSE.txt": "/fridayTask/static/js/2.d4adb32b.chunk.js.LICENSE.txt",
+    "static/css/main.bdcb89aa.chunk.css.map": "/fridayTask/static/css/main.bdcb89aa.chunk.css.map",
+    "static/js/2.ed32632b.chunk.js.LICENSE.txt": "/fridayTask/static/js/2.ed32632b.chunk.js.LICENSE.txt",
+    "static/media/back.3cc76821.svg": "/fridayTask/static/media/back.3cc76821.svg",
+    "static/media/delete.a031e1e8.svg": "/fridayTask/static/media/delete.a031e1e8.svg",
     "static/media/edit.e4aa39bd.svg": "/fridayTask/static/media/edit.e4aa39bd.svg",
+    "static/media/eye.20be5cac.svg": "/fridayTask/static/media/eye.20be5cac.svg",
+    "static/media/refresh.4eb282e2.svg": "/fridayTask/static/media/refresh.4eb282e2.svg",
+    "static/media/searchIcon.a45333a7.svg": "/fridayTask/static/media/searchIcon.a45333a7.svg",
     "static/media/user.3b7fc895.svg": "/fridayTask/static/media/user.3b7fc895.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.aff9a311.js",
-    "static/js/2.d4adb32b.chunk.js",
-    "static/css/main.f8fccf36.chunk.css",
-    "static/js/main.d56809af.chunk.js"
+    "static/js/runtime-main.1ec6f670.js",
+    "static/js/2.ed32632b.chunk.js",
+    "static/css/main.bdcb89aa.chunk.css",
+    "static/js/main.53d46203.chunk.js"
   ]
 }

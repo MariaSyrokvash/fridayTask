@@ -4,6 +4,7 @@ import {AppRootState} from '../store';
 import {cardsAPI} from '../../dal/CardsAPI';
 import {setPackCardsIdAC, setPackUserIdAC} from './packs-reducer';
 import {RequestStatusType} from './app-reducer';
+import {toast} from 'react-hot-toast';
 
 
 enum CARDS {
@@ -16,16 +17,18 @@ export type CardType = {
 	answer: string | null
 	question: string | null
 	cardsPack_id: string | null
-	grade: number | null
+	grade: number
 	rating: number | null
 	shots: number
 	type: string | null
 	user_id: string | null
 	created: string | null
 	updated: string | null
+	more_id: string | null
 	__v: number | null
 	_id: string
 }
+
 
 type initialStateType = {
 	cards: Array<CardType>
@@ -34,22 +37,7 @@ type initialStateType = {
 	emptyCardMessage: string
 }
 const initialState: initialStateType = {
-	cards: [
-		{
-			answer: null,
-			question: null,
-			cardsPack_id: null,
-			grade: null,
-			rating: null,
-			shots: 0,
-			type: null,
-			user_id: null,
-			created: null,
-			updated: null,
-			__v: null,
-			_id: '',
-		}
-	],
+	cards: [],
 	error: '',
 	status: 'idle',
 	emptyCardMessage: ''
@@ -107,7 +95,7 @@ export const getCardsTC = (): ThunkType => (dispatch, getState) => {
 				: (err.message + ', more details in the console');
 			// dispatch(setCardsErrorAC(error))
 			console.log(error)
-
+			toast.error(error);
 		})
 		.finally(() => {
 			dispatch(setCardsStatusAC('succeeded'))
@@ -129,6 +117,7 @@ export const addCardTC = (cardsPack_id: string, question?: string, answer?: stri
 				? err.response.data.error
 				: (err.message + ', more details in the console');
 			console.log(error)
+			toast.error(error);
 		})
 }
 
@@ -147,6 +136,7 @@ export const updateCardTC = (cardId: string, value: string, value2: string): Thu
 				? err.response.data.error
 				: (err.message + ', more details in the console');
 			console.log(error)
+			toast.error(error);
 		})
 }
 
@@ -162,7 +152,7 @@ export const deleteCardTC = (cardsPack_id: string): ThunkType => (dispatch, getS
 				? err.response.data.error
 				: (err.message + ', more details in the console');
 			console.log(error)
-
+			toast.error(error);
 		})
 }
 

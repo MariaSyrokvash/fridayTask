@@ -7,8 +7,9 @@ import {NavLink} from 'react-router-dom';
 import {PATH} from '../../05_routes/Routes';
 import {RequestErrorType, RequestStatusType} from '../../../bll/reducers/app-reducer';
 import {useDispatch} from 'react-redux';
-import {signUpTC} from '../../../bll/reducers/registration-reducer';
 import eye from './image/eye.svg'
+import {Toaster} from 'react-hot-toast';
+import {signUpTC} from '../../../bll/reducers/signUp-reducer';
 
 type RegistrationPropsType = {
 	theme?: string
@@ -76,7 +77,8 @@ export const SignUp: FC<RegistrationPropsType> = ({theme, status, registrationEr
 		<div className={style.regWrapper}>
 			<h1 className={style.regTitle}>Sign up</h1>
 			<p className={style.regSubTitle}>Please fill in the form below</p>
-			{registrationError ? <div className={style.regError}>{registrationError}</div> : null}
+			<Toaster />
+			{/*{registrationError ? <div className={style.regError}>{registrationError}</div> : null}*/}
 			<form className={style.regBox} onSubmit={formik.handleSubmit}>
 				<div className={style.regInner}>
 					<SuperInputText theme={theme} placeholder='e-mail' type="email"

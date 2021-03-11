@@ -3,6 +3,7 @@ import {RequestErrorType, RequestStatusType} from './app-reducer';
 import {packsAPI} from '../../dal/Packs';
 import {ThunkAction} from 'redux-thunk';
 import {AppRootState} from '../store';
+import {toast} from 'react-hot-toast';
 
 enum PACKS {
 	SET_PACKS = 'SET_PACKS',
@@ -82,6 +83,12 @@ export const packsReducer = (state: initialStateType = initialState, action: Act
 				packUserId: action.userId
 			}
 		}
+		case PACKS.SET_STATUS_PACKS: {
+			return {
+				...state,
+				status: action.status
+			}
+		}
 		default:
 			return state
 	}
@@ -122,6 +129,7 @@ export const getPacksTC = (): ThunkType => (dispatch, getState) => {
 				? e.response.data.error
 				: (e.message + ', more details in the console');
 			dispatch(setPacksErrorAC(error))
+			toast.error(error)
 		})
 		.finally(() => {
 			dispatch(setPacksStatusAC('succeeded'))
@@ -129,6 +137,7 @@ export const getPacksTC = (): ThunkType => (dispatch, getState) => {
 }
 
 export const deletePackTC = (idPack: string | null): ThunkType => (dispatch) => {
+	dispatch(setPacksStatusAC('loading'))
 	packsAPI.deletePack(idPack)
 		.then(response => {
 			dispatch(getPacksTC())
@@ -138,12 +147,15 @@ export const deletePackTC = (idPack: string | null): ThunkType => (dispatch) => 
 				? err.response.data.error
 				: (err.message + ', more details in the console');
 			console.log(error)
+			toast.error(error)
 		})
 		.finally(() => {
+			dispatch(setPacksStatusAC('succeeded'))
 		})
 }
 
 export const updatePackTС = (packId: string, name: string): ThunkType => (dispatch, getState) => {
+	dispatch(setPacksStatusAC('loading'))
 	const newPack = {
 		_id: packId,
 		name: name
@@ -159,8 +171,10 @@ export const updatePackTС = (packId: string, name: string): ThunkType => (dispa
 				? err.response.data.error
 				: (err.message + ', more details in the console');
 			console.log(error)
+			toast.error(error)
 		})
 		.finally(() => {
+			dispatch(setPacksStatusAC('succeeded'))
 		})
 }
 
@@ -187,6 +201,7 @@ export const addPackTC = (name: string): ThunkType => (dispatch, getState) => {
 				? err.response.data.error
 				: (err.message + ', more details in the console');
 			console.log(error)
+			toast.error(error)
 		})
 		.finally(() => {
 			dispatch(setPacksStatusAC('succeeded'))

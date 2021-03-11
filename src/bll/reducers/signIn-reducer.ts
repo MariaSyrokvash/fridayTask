@@ -2,6 +2,7 @@ import {Dispatch} from 'redux'
 import {RequestStatusType, setAppInitialedAC, setAppStatusAC} from './app-reducer';
 import {authAPI, LoginParamsType} from '../../dal/LoginAPI';
 import {setIdProfileAC, setUserProfileAC} from './profile-reducer';
+import {toast} from 'react-hot-toast';
 
 
 enum LOGIN {
@@ -18,7 +19,7 @@ const initialState: InitialStateType = {
 	loginStatus: 'idle'
 }
 
-export const loginReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const signInReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
 	switch (action.type) {
 		case LOGIN.SET_IS_LOGGED_IN:
 			return {
@@ -66,6 +67,7 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsTyp
 				? err.response.data.error
 				: (err.message + ', more details in the console');
 			dispatch(signInErrorAC(error))
+			toast.error(error);
 		})
 		.finally(() => {
 			dispatch(setLogoutStatusAC('succeeded'))
@@ -85,6 +87,7 @@ export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
 			const error = err.response
 				? err.response.data.error
 				: (err.message + ', more details in the console');
+			toast.error(error);
 		})
 		.finally(() => {
 			dispatch(setAppStatusAC('succeeded'))

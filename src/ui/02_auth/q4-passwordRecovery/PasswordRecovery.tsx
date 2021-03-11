@@ -6,8 +6,7 @@ import SuperInputText from '../../06_common/c1-SuperInputText/SuperInputText';
 import {RequestStatusType, sendEmailTC} from '../../../bll/reducers/recoveryPassword-reducer';
 import {useDispatch} from 'react-redux';
 import Loader from '../../06_common/c5-Loader/Loader';
-import {toast, Toaster} from 'react-hot-toast';
-import {setAppInitialedAC} from '../../../bll/reducers/app-reducer';
+import {Toaster} from 'react-hot-toast';
 
 type  FormikErrorType = {
 	email?: string
@@ -39,7 +38,6 @@ export const PasswordRecovery: FC<PasswordRecoveryPropsType> = ({theme, recovery
 		onSubmit: (values) => {
 			dispatch(sendEmailTC(values.email))
 			formik.resetForm()
-
 		},
 	})
 
@@ -49,12 +47,6 @@ export const PasswordRecovery: FC<PasswordRecoveryPropsType> = ({theme, recovery
 			<Toaster/>
 			<h1 className={s.recTitle}>Recover Password</h1>
 			<p className={s.recSubTitle}>Please, enter your email</p>
-			{/*/!*{recoveryError ? <div className={s.recError}>{recoveryError}</div> : null}*!/*/}
-			{/*{recoveryError && toast.error(recoveryError)}*/}
-			{/*/!*{recoverySuccess ? <div className={s.recSuccess}>{recoverySuccess}</div> : null}*!/*/}
-			{/*{recoverySuccess && toast.success(recoverySuccess)}*/}
-
-
 			<form onSubmit={formik.handleSubmit}>
 				<div className={s.recInner}>
 					<SuperInputText theme={theme} placeholder='e-mail' type="email" {...formik.getFieldProps('email')}/>

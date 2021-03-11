@@ -71,7 +71,7 @@ export const Cards: FC<CardsPropsType> = ({tableHeader, cards, status}) => {
 	return (
 		<div className={s.cardBox}>
 			{status === 'loading' ? <Loader/> : null}
-
+			<Toaster />
 			<NavLink to={PATH.PACKS} className={s.backBtn} onClick={resetCards}>
 				<img src={back} className={s.backIcon} />
 			</NavLink>

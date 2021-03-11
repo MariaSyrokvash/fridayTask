@@ -7,9 +7,10 @@ import SuperCheckbox from '../../06_common/c3-SuperCheckbox/SuperCheckbox';
 import {RequestErrorType, RequestStatusType} from '../../../bll/reducers/app-reducer';
 import { NavLink } from 'react-router-dom';
 import {PATH} from '../../05_routes/Routes';
-import {loginTC} from '../../../bll/reducers/login-reducer';
 import {useDispatch} from 'react-redux';
 import eye from '../q3-signUp/image/eye.svg'
+import {Toaster} from 'react-hot-toast';
+import {loginTC} from '../../../bll/reducers/signIn-reducer';
 
 type LoginPropsType = {
 	theme?: string
@@ -59,7 +60,6 @@ export const SignIn: FC<LoginPropsType> = ({theme, loginError,status}) => {
 		},
 		onSubmit: values => {
 			dispatch(loginTC(values))
-			// alert(JSON.stringify(values));
 			setDisable(true)
 			formik.resetForm()
 		},
@@ -69,7 +69,8 @@ export const SignIn: FC<LoginPropsType> = ({theme, loginError,status}) => {
 	return (
 		<div className={style.loginWrapper}>
 			<h1 className={style.loginTitle}>Sign in</h1>
-			{loginError ? <div className={style.error}>{loginError}</div> : null}
+			<Toaster/>
+			{/*{loginError ? <div className={style.error}>{loginError}</div> : null}*/}
 			<form className={style.loginBox} onSubmit={formik.handleSubmit}>
 				<div className={style.loginInner}>
 					<SuperInputText theme={theme} placeholder='e-mail' type="email"  {...formik.getFieldProps('email')}/>

@@ -1,6 +1,7 @@
 import {Dispatch} from 'redux';
 import {setAppStatusAC} from './app-reducer';
 import {registrationAPI, SignUpType} from '../../dal/RegistrationAPI';
+import {toast} from 'react-hot-toast';
 
 enum Registration {
 	SIGN_UP = 'SIGN_UP',
@@ -12,7 +13,7 @@ const initialState: InitialStateType = {
 	registrationError: null
 }
 
-export const registrationReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const signUpReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
 	switch (action.type) {
 		case Registration.SIGN_UP:
 			return {
@@ -45,6 +46,7 @@ export const signUpTC = (data: SignUpType) => (dispatch: Dispatch<ActionsType>) 
 				? err.response.data.error
 				: (err.message + ', more details in the console');
 			dispatch(signUpServerErrorAC(error))
+			toast.error(error)
 		})
 		.finally(() => {
 			dispatch(setAppStatusAC('succeeded'))

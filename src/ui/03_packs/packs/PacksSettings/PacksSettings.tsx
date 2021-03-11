@@ -10,7 +10,7 @@ import {
 	getPacksTC,
 	PackType,
 	setCurrentPageAC,
-	setMinMaxPriceRangeAC
+	setMinMaxPriceRangeAC, setSearchNamePacksAC
 } from '../../../../bll/reducers/packs-reducer';
 import {DoubleRangeSlider} from '../../../06_common/c8-DoubleRangeSlider/DoubleRangeSlider';
 import {Table} from '../../../06_common/c11-Table/Table';
@@ -18,7 +18,9 @@ import {PaginationComponent} from '../../../06_common/c7-Pagination/Pagination';
 import {PATH} from '../../../05_routes/Routes';
 import {NavLink, Route, useHistory} from 'react-router-dom';
 import {ModalBase} from '../../../06_common/c6-ModalForm/ModalBase/ModalBase';
-import toast from 'react-hot-toast';
+import {Toaster} from 'react-hot-toast';
+import {RequestStatusType} from '../../../../bll/reducers/app-reducer';
+import Loader from '../../../06_common/c5-Loader/Loader';
 
 type PacksPropsType = {
 	theme?: string
@@ -36,6 +38,7 @@ export const PacksSettings: FC<PacksPropsType> = ({theme, packs}) => {
 	const packsPerPage = useSelector<AppRootState, number>(state => state.packs.packsPerPage)
 	const cardPacksTotalCount = useSelector<AppRootState, number>(state => state.packs.cardPacksTotalCount)
 	const totalPages = Math.ceil(cardPacksTotalCount / packsPerPage)
+	const [searchName, setSearchName] = useState<string>('')
 	let [input, setInput] = useState<string>('')
 	const history = useHistory()
 	const dispatch = useDispatch()
@@ -43,14 +46,17 @@ export const PacksSettings: FC<PacksPropsType> = ({theme, packs}) => {
 
 	const getAllPacks = () => {
 		setActiveBtn('all')
+		setSearchName('')
+		dispatch(setSearchNamePacksAC(''))
 		dispatch(setMinMaxPriceRangeAC(0, 24))
 		dispatch(setIdProfileAC(null))
 		dispatch(getPacksTC())
 	}
 
 	const getMyPacks = () => {
-		console.log(myId)
 		setActiveBtn('own')
+		setSearchName('')
+		dispatch(setSearchNamePacksAC(''))
 		dispatch(setMinMaxPriceRangeAC(0, 24))
 		dispatch(setIdProfileAC(myId))
 		dispatch(getPacksTC())
@@ -83,7 +89,8 @@ export const PacksSettings: FC<PacksPropsType> = ({theme, packs}) => {
 
 	return (
 		<div className={s.settings}>
-			<Search theme={theme}/>
+			<Toaster />
+			<Search theme={theme} searchName={searchName} setSearchName={setSearchName}/>
 
 			<div className={s.settingsBtnBox}>
 				<SuperButton className={activeBtn === 'all' ? s.settingsBtnActive : s.settingsBtn} onClick={getAllPacks}>All

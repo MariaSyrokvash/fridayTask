@@ -1,9 +1,10 @@
-import {setIsLoggedInAC} from './login-reducer';
+import {setIsLoggedInAC} from './signIn-reducer';
 import {Dispatch} from 'redux';
 import {authAPI} from '../../dal/LoginAPI';
 import {ThunkAction} from 'redux-thunk';
 import {AppRootState} from '../store';
 import {RequestErrorType} from './app-reducer';
+import {toast} from 'react-hot-toast';
 
 
 enum PROFILE {
@@ -73,6 +74,7 @@ export const authMeTC = (): AuthMeThunkType => (dispatch) => {
 				? err.response.data.error
 				: (err.message + ', more details in the console');
 			console.log(error)
+			toast.error(error)
 			dispatch(setErrorAC(error))
 		})
 }

@@ -5,6 +5,7 @@ import {PATH} from '../05_routes/Routes';
 import {ProfileType} from '../../bll/reducers/profile-reducer';
 import user from './image/user.svg'
 import edit	from './image/edit.svg'
+import {Toaster} from 'react-hot-toast';
 
 type ProfilePropsType = {
 	profile: ProfileType
@@ -17,7 +18,7 @@ export const Profile: FC<ProfilePropsType> = ({profile}) => {
 	return (
 		<div className={style.profileBox}>
 			<div className={style.editBox}><img src={edit} className={style.editIcon}/></div>
-			{/*<h1 className={style.title}>Profile</h1>*/}
+			<Toaster />
 			<div>
 				<div><img src={user} alt='userPhoto' className={style.avatar}/></div>
 			</div>
