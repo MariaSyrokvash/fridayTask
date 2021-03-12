@@ -117,7 +117,7 @@ export const Table: FC<TablePropsType> = ({packs, headerElement, cards}) => {
 				<tbody>
 				{packs && renderBodyPacks(packs)}
 				{cards && renderBodyCards(cards)}
-				{cards && !cards.length && <tr className={s.emptyPackTitle}>
+				{cards && !cards.length && status !== 'loading'&& <tr className={s.emptyPackTitle}>
           <td>There are no cards in this pack..</td>
         </tr>}
 
