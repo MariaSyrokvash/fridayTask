@@ -1,6 +1,7 @@
 @import "src/ui/06_common/styles/colors/colors";
 
 .loginWrapper {
+  position: relative;
   margin-top: 100px;
   display: flex;
   flex-direction: column;

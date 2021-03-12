@@ -1,30 +1,17 @@
 @import "src/ui/06_common/styles/colors/colors";
 
-.switcherBtn {
-  border: none !important;
-  outline: none;
-  background-color: $light-theme-bg !important;
-  color: $light-theme-bg !important;
-  padding: 0px !important;
-  cursor: pointer;
-}
-
-.switcherBtn.dark {
-  background-color: $dark-theme-bg !important;
-}
-
-.switcherBtn.light {
+.emoji {
+  font-size: 30px;
+  line-height: 1;
   transition: 0.3s all;
 }
 
-.emoji {
-  font-size: 30px;
+.emoji:hover {
+  cursor: pointer;
 }
 
 .btnBox {
   display: flex;
-  align-items: center;
-  position: absolute;
-  height: 79px;
-  right: 1%;
+  height: inherit;
+  align-items: flex-end;
 }

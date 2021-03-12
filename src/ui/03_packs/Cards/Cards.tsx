@@ -2,17 +2,16 @@ import React, {FC, useState} from 'react';
 import {Table} from '../../06_common/c11-Table/Table';
 import {addCardTC, CardType, deleteCardTC, setCardsAC, updateCardTC} from '../../../bll/reducers/cards-reducer';
 import s from './Cards.module.scss';
-import {NavLink, Route, useHistory, useParams} from 'react-router-dom';
+import {NavLink, Route, useHistory} from 'react-router-dom';
 import {PATH} from '../../05_routes/Routes';
 import {RequestStatusType} from '../../../bll/reducers/app-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import Loader from '../../06_common/c5-Loader/Loader';
 import SuperButton from '../../06_common/c2-SuperButton/SuperButton';
-import back from './image/back.svg'
 import {AppRootState} from '../../../bll/store';
 import {ModalConfirm} from '../../06_common/c6-ModalForm/ModalBase/ModalConfirm/ModalConfirm';
 import {ModalCard} from '../../06_common/c6-ModalForm/ModalBase/ModalCard/ModalCard';
-import toast, { Toaster } from 'react-hot-toast';
+import {Toaster} from 'react-hot-toast';
 
 type CardsPropsType = {
 	tableHeader: Array<string>
@@ -26,7 +25,6 @@ export const Cards: FC<CardsPropsType> = ({tableHeader, cards, status}) => {
 	const cardsPackId =  useSelector<AppRootState, string>(state => state.packs.packCardsId)
 	const dispatch = useDispatch()
 	const history = useHistory()
-	// const QUESTION = useSelector<AppRootState, string>(state => state.cards.cards)
 	const [addValue, setAddValue] = useState<string>('')
 	const [addValue2, setAddValue2] = useState<string>('')
 	const [updateValue, setUpdateValue] = useState<string>('')
@@ -72,12 +70,12 @@ export const Cards: FC<CardsPropsType> = ({tableHeader, cards, status}) => {
 		<div className={s.cardBox}>
 			{status === 'loading' ? <Loader/> : null}
 			<Toaster />
-			<NavLink to={PATH.PACKS} className={s.backBtn} onClick={resetCards}>
-				<img src={back} className={s.backIcon} />
+			<NavLink to={PATH.PACKS} className={s.backLink}>
+				<SuperButton className={`${s.btn} ${s.backBtn}`} disabled={status === 'loading'} onClick={resetCards}>Packs</SuperButton>
 			</NavLink>
 			<h2>Cards</h2>
 			<NavLink to={PATH.CARDS + '/add/' + cardsPackId} className={s.addCardLink}>
-				<SuperButton className={s.addCardBtn}  disabled={myId !== packUserId}>Add card</SuperButton>
+				<SuperButton className={`${s.btn} ${s.addCardBtn}`}  disabled={myId !== packUserId || status === 'loading'}>Add card</SuperButton>
 			</NavLink>
 
 			<Table headerElement={tableHeader} cards={cards}/>

@@ -13,16 +13,12 @@ type RegistrationContainerPropsType = {
 }
 
 export const SignUpContainer: FC<RegistrationContainerPropsType> = ({theme}) => {
-	const status = useSelector<AppRootState, RequestStatusType>(state => state.app.status)
+	const status = useSelector<AppRootState, RequestStatusType>(state => state.registration.status)
 	const registrationError = useSelector<AppRootState, RequestErrorType>(state => state.registration.registrationError)
 	const isRegistration = useSelector<AppRootState, boolean>(state => state.registration.isRegistration)
 
 	if (isRegistration) {
 		return <Redirect to={PATH.LOGIN}/>
-	}
-
-	if (status === 'loading') {
-		return <Loader/>
 	}
 
 	return (

@@ -46,3 +46,10 @@
 .error {
   color: lightgrey;
 }
+
+
+@media screen and (max-width: 500px) {
+  .superInput {
+    width: 280px;
+  }
+}

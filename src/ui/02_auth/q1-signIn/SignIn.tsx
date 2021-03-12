@@ -11,6 +11,7 @@ import {useDispatch} from 'react-redux';
 import eye from '../q3-signUp/image/eye.svg'
 import {Toaster} from 'react-hot-toast';
 import {loginTC} from '../../../bll/reducers/signIn-reducer';
+import Loader from '../../06_common/c5-Loader/Loader';
 
 type LoginPropsType = {
 	theme?: string
@@ -65,11 +66,11 @@ export const SignIn: FC<LoginPropsType> = ({theme, loginError,status}) => {
 		},
 	})
 
-
 	return (
 		<div className={style.loginWrapper}>
 			<h1 className={style.loginTitle}>Sign in</h1>
 			<Toaster/>
+			{status === 'loading' && <Loader />}
 			{/*{loginError ? <div className={style.error}>{loginError}</div> : null}*/}
 			<form className={style.loginBox} onSubmit={formik.handleSubmit}>
 				<div className={style.loginInner}>

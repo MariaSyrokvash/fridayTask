@@ -62,3 +62,26 @@
 .addPack {
   text-decoration: none;
 }
+
+.btn:disabled {
+  background-color: $gray !important;
+  border: none;
+}
+
+@media screen and (max-width: 950px) {
+  .settingsBtnBox {
+    width: 500px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .settingsBtnBox {
+    width: 400px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .settingsBtnBox {
+    width: 300px;
+  }
+}

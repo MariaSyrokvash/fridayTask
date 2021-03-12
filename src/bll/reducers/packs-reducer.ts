@@ -32,7 +32,7 @@ const initialState: initialStateType = {
 	minCardsCount: 0,
 	maxCardsCount: 24,
 	packCardsId: '',
-	packUserId: ''
+	packUserId: '',
 }
 
 
@@ -100,7 +100,11 @@ export const setPacksStatusAC = (status: RequestStatusType) => ({type: PACKS.SET
 export const setPacksErrorAC = (error: RequestErrorType) => ({type: PACKS.SET_ERROR_PACKS, error} as const)
 export const setPacksTotalCountAC = (count: number) => ({type: PACKS.SET_PACKS_TOTAL_COUNT, count} as const)
 export const setSearchNamePacksAC = (searchName: string) => ({type: PACKS.SET_SEARCH_PACKS_NAME, searchName} as const)
-export const setMinMaxPriceRangeAC = (min: number, max: number) => ({type: PACKS.SET_MIN_MAX_PRICE_RANGE, min, max} as const)
+export const setMinMaxPriceRangeAC = (min: number, max: number) => ({
+	type: PACKS.SET_MIN_MAX_PRICE_RANGE,
+	min,
+	max
+} as const)
 export const setPackCardsIdAC = (packId: string) => ({type: PACKS.SET_PACK_CARDS_ID, packId} as const)
 export const setPackUserIdAC = (userId: string) => ({type: PACKS.SET_PACK_USER_ID, userId} as const)
 export const setCurrentPageAC = (value: number) => ({type: PACKS.SET_CURRENT_PAGE, value} as const)
@@ -253,7 +257,7 @@ type initialStateType = {
 	minCardsCount: number
 	maxCardsCount: number
 	packCardsId: string
-	packUserId:  string
+	packUserId: string
 }
 
 

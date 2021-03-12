@@ -58,3 +58,13 @@
 .breakLinkClassName {
   color: $dark-theme-text;
 }
+
+@media screen and (max-width: 650px) {
+  .paginationBox {
+    width: 300px;
+  }
+
+  .pageLinkClassName, .previousLinkClassName, .nextLinkClassName {
+    font-size: 12px;
+  }
+}

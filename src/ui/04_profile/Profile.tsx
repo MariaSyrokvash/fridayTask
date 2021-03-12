@@ -20,7 +20,7 @@ export const Profile: FC<ProfilePropsType> = ({profile}) => {
 			<div className={style.editBox}><img src={edit} className={style.editIcon}/></div>
 			<Toaster />
 			<div>
-				<div><img src={user} alt='userPhoto' className={style.avatar}/></div>
+				{/*<div><img src={user} alt='userPhoto' className={style.avatar}/></div>*/}
 			</div>
 			<div className={style.wrap}>
 				<p className={style.name}>Hello, <span className={style.nameAccent}>{profile.name}</span></p>

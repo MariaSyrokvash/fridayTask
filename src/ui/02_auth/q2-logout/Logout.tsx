@@ -22,8 +22,8 @@ export const Logout = () => {
 	return (
 		<>
 			<Toaster />
-			{status === 'loading' ? <Loader/> : null}
-			{isLoggedIn && <SuperButton onClick={logOutHandler} className={s.logout}>Logout</SuperButton>}
+			{status === 'loading' && <Loader/> }
+			{isLoggedIn && <SuperButton onClick={logOutHandler} className={s.logout}>Log out</SuperButton>}
 		</>
 	)
 }

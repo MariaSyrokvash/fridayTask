@@ -10,7 +10,8 @@ import {
 	getPacksTC,
 	PackType,
 	setCurrentPageAC,
-	setMinMaxPriceRangeAC, setSearchNamePacksAC
+	setMinMaxPriceRangeAC,
+	setSearchNamePacksAC
 } from '../../../../bll/reducers/packs-reducer';
 import {DoubleRangeSlider} from '../../../06_common/c8-DoubleRangeSlider/DoubleRangeSlider';
 import {Table} from '../../../06_common/c11-Table/Table';
@@ -20,7 +21,6 @@ import {NavLink, Route, useHistory} from 'react-router-dom';
 import {ModalBase} from '../../../06_common/c6-ModalForm/ModalBase/ModalBase';
 import {Toaster} from 'react-hot-toast';
 import {RequestStatusType} from '../../../../bll/reducers/app-reducer';
-import Loader from '../../../06_common/c5-Loader/Loader';
 
 type PacksPropsType = {
 	theme?: string
@@ -34,6 +34,7 @@ export const PacksSettings: FC<PacksPropsType> = ({theme, packs}) => {
 	const maxCardsCount = useSelector<AppRootState, number>(state => state.packs.maxCardsCount)
 	const minPrice = useSelector<AppRootState, number>(state => state.packs.min)
 	const maxPrice = useSelector<AppRootState, number>(state => state.packs.max)
+	const status = useSelector<AppRootState, RequestStatusType>(state => state.packs.status)
 	const [activeBtn, setActiveBtn] = useState<string>('all')
 	const packsPerPage = useSelector<AppRootState, number>(state => state.packs.packsPerPage)
 	const cardPacksTotalCount = useSelector<AppRootState, number>(state => state.packs.cardPacksTotalCount)
@@ -89,18 +90,18 @@ export const PacksSettings: FC<PacksPropsType> = ({theme, packs}) => {
 
 	return (
 		<div className={s.settings}>
-			<Toaster />
+			<Toaster/>
 			<Search theme={theme} searchName={searchName} setSearchName={setSearchName}/>
 
 			<div className={s.settingsBtnBox}>
-				<SuperButton className={activeBtn === 'all' ? s.settingsBtnActive : s.settingsBtn} onClick={getAllPacks}>All
-					packs</SuperButton>
-				<SuperButton className={activeBtn === 'own' ? s.settingsBtnActive : s.settingsBtn} onClick={getMyPacks}>My
-					packs</SuperButton>
+				<SuperButton className={`${s.btn} ${activeBtn === 'all' ? s.settingsBtnActive : s.settingsBtn}`}
+										 disabled={status === 'loading'} onClick={getAllPacks}>All packs</SuperButton>
+				<SuperButton className={`${s.btn} ${activeBtn === 'own' ? s.settingsBtnActive : s.settingsBtn}`}
+										 disabled={status === 'loading'} onClick={getMyPacks}>My packs</SuperButton>
 			</div>
 
 			<NavLink to={PATH.PACKS + '/add'} className={s.addPack}>
-				<SuperButton className={s.addBtn}>
+				<SuperButton className={`${s.btn} ${s.addBtn}`} disabled={status === 'loading'}>
 					Add pack
 				</SuperButton>
 			</NavLink>

@@ -1,59 +1,191 @@
-@import "src/ui/06_common/styles/colors/colors";
+//@import "src/ui/06_common/styles/colors/colors";
+//
+//.navBox {
+//  width: 100%;
+//  display: flex;
+//  justify-content: center;
+//  align-items: baseline;
+//  height: 65px;
+//}
+//
+//.navList {
+//  display: flex;
+//  width: 100%;
+//  height: inherit;
+//  align-items: flex-end;
+//  justify-content: space-between;
+//  padding: 0;
+//  margin: 0;
+//}
+//
+//.navListInner {
+//  height: inherit;
+//  width: 70%;
+//  display: flex;
+//  align-items: flex-end;
+//}
+//
+//.navListInnerSecond {
+//  height: inherit;
+//  width: 30%;
+//  display: flex;
+//  justify-content: space-between;
+//  align-items: flex-end;
+//}
+//
+//.navItem {
+//  padding-right: 50px;
+//  list-style: none;
+//}
+//
+//.navItem:last-child {
+//  padding-right: 0;
+//}
+//
+//.link {
+//  text-decoration: none;
+//  font-weight: 500;
+//  text-transform: uppercase;
+//  font-size: 16px;
+//}
+//
+//.link.selected.dark {
+//  border-bottom: 5px solid $accent-color;
+//}
+//
+//.link.selected.light {
+//  border-bottom: 5px solid $accent-color;
+//}
+//
+//.link.dark {
+//  background: $dark-theme-bg;
+//  color: $dark-theme-text;
+//  transition: 0.3s all;
+//}
+//
+//.link.light {
+//  background: $light-theme-bg;
+//  color: $light-theme-text;
+//  transition: 0.3s all;
+//}
+//
+//
+//@media screen and (max-width: 650px) {
+//  .navBox {
+//    height: 100%;
+//    width: 80%;
+//    margin: 0 auto;
+//    flex-direction: column;
+//  }
+//
+//  .navList {
+//    flex-direction: column;
+//    align-items: center;
+//    height: auto;
+//  }
+//
+//  .navListInner {
+//    flex-direction: column;
+//    align-items: center;
+//    width: 105px;
+//  }
+//
+//  .navListInnerSecond {
+//    flex-direction: column;
+//    margin-bottom: 10px;
+//    width: 105px;
+//  }
+//
+//  .navItem {
+//    padding: 0;
+//    margin-bottom: 4px;
+//  }
+//
+//  .navItemTheme {
+//    position: absolute;
+//    right: 10px;
+//    top: 10px;
+//  }
+//}
 
-.navBox {
-  display: flex;
-  justify-content: center;
-  align-items: baseline;
+
+
+////hedder mobule
+
+
+
+.overlay {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 90px;
+  background-color: #fff;
 }
 
-.navList {
-  display: flex;
-  width: 80%;
-  justify-content: space-between;
-  padding: 0;
+.overlay > label {
+  cursor: pointer;
+  display: block;
+  position: relative;
+  top: 30px;
+  width: 30px;
+  height: 16px;
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
 }
 
-.navItem {
-  margin: 12px 0;
-  padding-right: 25px;
-  list-style: none;
+.overlay > label::before {
+  content: '';
+  display: block;
+  position: relative;
+  top: 7px;
+  border-top: 2px solid #000;
 }
 
-.link {
+.verticalNav {
+  color: #333;
+  position: relative;
+  top: -55px;
+  height: 145px;
+  padding: 10px;
+  font-size: 22px;
+  box-sizing: border-box;
+  background-color: #ddd;
+  transition: top 600ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
+}
+
+.verticalNav a {
+  display: block;
+  color: #111;
   text-decoration: none;
-  font-weight: 500;
-  text-transform: uppercase;
-  font-size: 16px;
 }
 
-.link.selected.dark {
-  border-bottom: 5px solid $accent-color;
+.verticalNav a:hover {
+  width: 120px;
+  background-color: #fff;
 }
 
-.link.selected.light {
-  border-bottom: 5px solid $accent-color;
+.puppies {
+  padding-bottom: 10px;
+  margin-left: 115px;
+  background-color: #fff;
+  margin-top: -30px;
+  transition: margin-top 600ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
 }
 
-.link.dark {
-  background: $dark-theme-bg;
-  color: $dark-theme-text;
-  transition: 0.3s all;
+img {
+  margin-top: 5px;
+  margin-left: 115px;
 }
 
-.link.light {
-  background: $light-theme-bg;
-  color: $light-theme-text;
-  transition: 0.3s all;
+.toggle {
+  position: absolute;
+  visibility: hidden;
 }
 
+.toggle:checked ~ .verticalNav {
+  top: 80px;
+}
 
-@media (max-width: 950px) {
-  .navBox {
-    flex-direction: column;
-
-    .navList {
-      flex-direction: column;
-      margin: 0 auto;
-    }
-  }
+.toggle:checked  ~ .puppies {
+  margin-top: 135px;
 }

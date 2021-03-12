@@ -1,4 +1,5 @@
 @import "src/ui/06_common/styles/colors/colors";
+@import url("https://use.fontawesome.com/releases/v5.13.0/css/all.css");
 
 .cardBox {
   position: relative;
@@ -37,4 +38,42 @@
 
 .addCardLink {
   text-decoration: none;
+}
+
+.backLink {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  text-decoration: none;
+  margin-top: 40px;
+}
+
+.backBtn {
+  position: relative;
+  width: 100px;
+  margin: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px !important;
+  font-size: 14px;
+  cursor: pointer !important;
+}
+
+.backBtn:before {
+  display: none;
+  font-family: "Font Awesome 5 Free";
+  content: '\f359';
+  position: absolute;
+  transition: all 200ms ease;
+}
+
+.backBtn:hover:before {
+  display: inline-block;
+  left: 7px;
+}
+
+.btn:disabled {
+  background-color: $gray !important;
+  border: none;
 }

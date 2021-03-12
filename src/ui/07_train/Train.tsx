@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {CardType} from '../../bll/reducers/cards-reducer';
+import {CardType, setCardsAC} from '../../bll/reducers/cards-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {NavLink, useParams} from 'react-router-dom';
 import {AppRootState} from '../../bll/store';
@@ -73,18 +73,26 @@ export const Train = () => {
 			}
 		}
 
+		const resetCards = () => {
+			dispatch(setCardsAC([]))
+		}
+
 		return (
 			<div className={t.trainBox}>
+
 				{
 					!cards.length
 						? <>
-							<div className={t.emptyMessage}>Oops, it's empty. Please choose another pack..</div>
 							<NavLink to={PATH.PACKS} className={t.backLink}>
-								<SuperButton className={t.backBtn}>Packs</SuperButton>
+								<SuperButton className={t.backBtn} onClick={resetCards}>Packs</SuperButton>
 							</NavLink>
+							<div className={t.emptyMessage}>Oops, it's empty. Please choose another pack..</div>
 						</>
 						:
 						<>
+							<NavLink to={PATH.PACKS} className={t.backLink}>
+								<SuperButton className={t.backBtn} onClick={resetCards}>Packs</SuperButton>
+							</NavLink>
 							<div className={t.question}>{card.question}</div>
 							<div>
 								<SuperButton onClick={() => setIsChecked(true)} className={t.checkBtn}>check</SuperButton>

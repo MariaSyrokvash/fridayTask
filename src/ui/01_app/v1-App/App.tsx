@@ -31,8 +31,8 @@ function App() {
 	return (
 		<div className={`${s.app} ${theme === 'dark' ? s.dark : s.light}`}>
 			<div className={s.container}>
-				<Theme theme={theme} toggleTheme={toggleTheme}/>
-				<Header theme={theme}/>
+				{/*<Theme theme={theme} toggleTheme={toggleTheme}/>*/}
+				<Header theme={theme} toggleTheme={toggleTheme}/>
 				<Routes theme={theme}/>
 			</div>
 		</div>

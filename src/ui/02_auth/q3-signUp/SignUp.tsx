@@ -10,6 +10,7 @@ import {useDispatch} from 'react-redux';
 import eye from './image/eye.svg'
 import {Toaster} from 'react-hot-toast';
 import {signUpTC} from '../../../bll/reducers/signUp-reducer';
+import Loader from '../../06_common/c5-Loader/Loader';
 
 type RegistrationPropsType = {
 	theme?: string
@@ -75,9 +76,10 @@ export const SignUp: FC<RegistrationPropsType> = ({theme, status, registrationEr
 
 	return (
 		<div className={style.regWrapper}>
+			{status === 'loading' && <Loader/>}
 			<h1 className={style.regTitle}>Sign up</h1>
 			<p className={style.regSubTitle}>Please fill in the form below</p>
-			<Toaster />
+			<Toaster/>
 			{/*{registrationError ? <div className={style.regError}>{registrationError}</div> : null}*/}
 			<form className={style.regBox} onSubmit={formik.handleSubmit}>
 				<div className={style.regInner}>
@@ -89,7 +91,7 @@ export const SignUp: FC<RegistrationPropsType> = ({theme, status, registrationEr
 					}
 				</div>
 				<div className={style.regInner}>
-					<SuperInputText  theme={theme} placeholder='password'
+					<SuperInputText theme={theme} placeholder='password'
 													type={showPassword ? 'text' : 'password'} {...formik.getFieldProps('password')}/>
 					<img src={eye} className={style.passIcon} onClick={changeViewPass}/>
 					{formik.touched.password && formik.errors.password

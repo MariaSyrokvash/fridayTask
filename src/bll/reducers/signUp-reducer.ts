@@ -1,29 +1,36 @@
 import {Dispatch} from 'redux';
-import {setAppStatusAC} from './app-reducer';
+import {RequestStatusType} from './app-reducer';
 import {registrationAPI, SignUpType} from '../../dal/RegistrationAPI';
 import {toast} from 'react-hot-toast';
 
-enum Registration {
+enum SIGN_UP {
 	SIGN_UP = 'SIGN_UP',
 	SIGN_UP_ERROR = 'SIGN_UP_ERROR',
+	SIGN_UP_STATUS = 'SIGN_UP_STATUS',
 }
 
 const initialState: InitialStateType = {
 	isRegistration: false,
-	registrationError: null
+	registrationError: null,
+	status: 'idle'
 }
 
 export const signUpReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
 	switch (action.type) {
-		case Registration.SIGN_UP:
+		case SIGN_UP.SIGN_UP:
 			return {
 				...state,
 				isRegistration: action.isRegistration
 			}
-		case Registration.SIGN_UP_ERROR:
+		case SIGN_UP.SIGN_UP_ERROR:
 			return {
 				...state,
 				registrationError: action.error
+			}
+		case SIGN_UP.SIGN_UP_STATUS:
+			return {
+				...state,
+				status: action.status
 			}
 		default:
 			return state
@@ -31,12 +38,13 @@ export const signUpReducer = (state: InitialStateType = initialState, action: Ac
 }
 
 // actions
-export const signUpAC = (isRegistration: boolean) => ({type: Registration.SIGN_UP, isRegistration} as const)
-export const signUpServerErrorAC = (error: string | null) => ({type: Registration.SIGN_UP_ERROR, error} as const)
+export const signUpAC = (isRegistration: boolean) => ({type: SIGN_UP.SIGN_UP, isRegistration} as const)
+export const signUpServerErrorAC = (error: string | null) => ({type: SIGN_UP.SIGN_UP_ERROR, error} as const)
+export const signUpStatusAC = (status: RequestStatusType) => ({type: SIGN_UP.SIGN_UP_STATUS, status} as const)
 
 //thunks
 export const signUpTC = (data: SignUpType) => (dispatch: Dispatch<ActionsType>) => {
-	dispatch(setAppStatusAC('loading'))
+	dispatch(signUpStatusAC('loading'))
 	registrationAPI.signUp(data)
 		.then((res) => {
 			dispatch(signUpAC(true))
@@ -49,17 +57,18 @@ export const signUpTC = (data: SignUpType) => (dispatch: Dispatch<ActionsType>) 
 			toast.error(error)
 		})
 		.finally(() => {
-			dispatch(setAppStatusAC('succeeded'))
+			dispatch(signUpStatusAC('succeeded'))
 		})
 }
 
 export type ActionsType =
 	ReturnType<typeof signUpAC>
-	| ReturnType<typeof setAppStatusAC>
 	| ReturnType<typeof signUpServerErrorAC>
+	| ReturnType<typeof signUpStatusAC>
 
 
 type InitialStateType = {
 	isRegistration: boolean
 	registrationError: null | string
+	status: RequestStatusType
 }

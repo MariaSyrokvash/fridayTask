@@ -57,7 +57,7 @@ export const cardsReducer = (state: initialStateType = initialState, action: Act
 		// 		error: action.error
 		// 	}
 		// }
-		case	CARDS.SET_CARDS_STATUS: {
+		case  CARDS.SET_CARDS_STATUS: {
 			return {
 				...state,
 				status: action.status
@@ -100,9 +100,13 @@ export const getCardsTC = (): ThunkType => (dispatch, getState) => {
 		.finally(() => {
 			dispatch(setCardsStatusAC('succeeded'))
 		})
+		.finally(() => {
+			dispatch(setCardsStatusAC('succeeded'))
+		})
 }
 
 export const addCardTC = (cardsPack_id: string, question?: string, answer?: string): ThunkType => (dispatch, getState) => {
+	dispatch(setCardsStatusAC('loading'))
 	const newCard = {
 		cardsPack_id: cardsPack_id,
 		question: question,
@@ -119,9 +123,13 @@ export const addCardTC = (cardsPack_id: string, question?: string, answer?: stri
 			console.log(error)
 			toast.error(error);
 		})
+		.finally(() => {
+			dispatch(setCardsStatusAC('succeeded'))
+		})
 }
 
 export const updateCardTC = (cardId: string, value: string, value2: string): ThunkType => (dispatch, getState) => {
+	dispatch(setCardsStatusAC('loading'))
 	const updateCard = {
 		_id: cardId,
 		question: value,
@@ -138,11 +146,14 @@ export const updateCardTC = (cardId: string, value: string, value2: string): Thu
 			console.log(error)
 			toast.error(error);
 		})
+		.finally(() => {
+			dispatch(setCardsStatusAC('succeeded'))
+		})
 }
 
 
 export const deleteCardTC = (cardsPack_id: string): ThunkType => (dispatch, getState) => {
-
+	dispatch(setCardsStatusAC('loading'))
 	cardsAPI.deleteCard(cardsPack_id)
 		.then((res) => {
 			dispatch(getCardsTC())
@@ -153,6 +164,9 @@ export const deleteCardTC = (cardsPack_id: string): ThunkType => (dispatch, getS
 				: (err.message + ', more details in the console');
 			console.log(error)
 			toast.error(error);
+		})
+		.finally(() => {
+			dispatch(setCardsStatusAC('succeeded'))
 		})
 }
 

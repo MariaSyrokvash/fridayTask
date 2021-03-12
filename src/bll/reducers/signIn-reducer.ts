@@ -1,5 +1,5 @@
 import {Dispatch} from 'redux'
-import {RequestStatusType, setAppInitialedAC, setAppStatusAC} from './app-reducer';
+import {RequestStatusType, setAppInitialedAC} from './app-reducer';
 import {authAPI, LoginParamsType} from '../../dal/LoginAPI';
 import {setIdProfileAC, setUserProfileAC} from './profile-reducer';
 import {toast} from 'react-hot-toast';
@@ -54,10 +54,9 @@ export const setLoginStatusAC = (status: RequestStatusType) => ({type: LOGIN.SET
 
 //thunks
 export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsType>) => {
-	dispatch(setLogoutStatusAC('loading'))
+	dispatch(setLoginStatusAC('loading'))
 	authAPI.login(data)
 		.then(res => {
-			// dispatch(setAppInitialedAC())
 			dispatch(setIsLoggedInAC(true))
 			dispatch(setUserProfileAC(res.data))
 			dispatch(setIdProfileAC(res.data._id))
@@ -70,13 +69,13 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsTyp
 			toast.error(error);
 		})
 		.finally(() => {
-			dispatch(setLogoutStatusAC('succeeded'))
+			dispatch(setLoginStatusAC('succeeded'))
 		})
 }
 
 
 export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
-	dispatch(setAppStatusAC('loading'))
+	dispatch(setLogoutStatusAC('loading'))
 
 	authAPI.logout()
 		.then(() => {
@@ -90,7 +89,7 @@ export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
 			toast.error(error);
 		})
 		.finally(() => {
-			dispatch(setAppStatusAC('succeeded'))
+			dispatch(setLogoutStatusAC('succeeded'))
 		})
 }
 
@@ -106,7 +105,6 @@ type InitialStateType = {
 type ActionsType =
 	ReturnType<typeof setIsLoggedInAC>
 	| ReturnType<typeof setUserProfileAC>
-	| ReturnType<typeof setAppStatusAC>
 	| ReturnType<typeof signInErrorAC>
 	| ReturnType<typeof setIdProfileAC>
 	| ReturnType<typeof setAppInitialedAC>
