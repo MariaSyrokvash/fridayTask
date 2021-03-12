@@ -5,13 +5,12 @@
   width: 0;
 }
 
-input[type=checkbox] {
-  width: 0;
-  height: 0;
-  margin: 0;
-  padding: 0;
-  cursor: auto;
-  font-size: 0;
+.toggle::after {
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 0 !important;
 }
 
 .navBox {
@@ -19,7 +18,8 @@ input[type=checkbox] {
   display: flex;
   justify-content: center;
   align-items: baseline;
-  height: 65px;
+  height: 50px;
+  margin-top: -20px;
 }
 
 .navList {
@@ -129,7 +129,6 @@ input[type=checkbox] {
     position: absolute;
     z-index: 1;
     left: 10px;
-    width: 70%;
     height: 65px;
     transition: 0.3s all;
   }
@@ -164,7 +163,7 @@ input[type=checkbox] {
   .verticalNav {
     color: $accent-color;
     position: relative;
-    top: -105px;
+    top: -155px;
     height: 94px;
     padding: 10px;
     font-size: 22px;
@@ -178,9 +177,6 @@ input[type=checkbox] {
     text-decoration: none;
   }
 
-  //.verticalNav a:hover {
-  //  width: 120px;
-  //}
 
   .puppies {
     padding-bottom: 10px;

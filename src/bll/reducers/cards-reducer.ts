@@ -11,7 +11,26 @@ enum CARDS {
 	SET_CARDS = 'SET_CARDS',
 	SET_CARDS_ERROR = 'SET_CARDS_ERROR',
 	SET_CARDS_STATUS = 'SET_CARDS_STATUS',
+	SET_GRADE_CARD = 'SET_GRADE_CARD',
+	SET_CARD_ID = 'SET_CARD_ID',
+	SET_TRAIN_STATUS = 'SET_TRAIN_STATUS'
 }
+
+// export type CardType = {
+// 	answer: string | null
+// 	question: string | null
+// 	cardsPack_id: string | null
+// 	grade: number
+// 	rating: number | null
+// 	shots: number
+// 	type: string | null
+// 	user_id: string | null
+// 	created: string | null
+// 	updated: string | null
+// 	more_id: string | null
+// 	__v: number | null
+// 	_id: string
+// }
 
 export type CardType = {
 	answer: string | null
@@ -24,24 +43,28 @@ export type CardType = {
 	user_id: string | null
 	created: string | null
 	updated: string | null
-	more_id: string | null
 	__v: number | null
 	_id: string
 }
-
 
 type initialStateType = {
 	cards: Array<CardType>
 	error: string
 	status: RequestStatusType
+	trainStatus: RequestStatusType
 	emptyCardMessage: string
+	cardId: string
 }
 const initialState: initialStateType = {
 	cards: [],
 	error: '',
 	status: 'idle',
-	emptyCardMessage: ''
+	trainStatus: 'idle',
+	emptyCardMessage: '',
+	cardId: ''
 }
+
+console.log(initialState.cards)
 
 export const cardsReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
 	switch (action.type) {
@@ -63,6 +86,35 @@ export const cardsReducer = (state: initialStateType = initialState, action: Act
 				status: action.status
 			}
 		}
+		case  CARDS.SET_TRAIN_STATUS: {
+			return {
+				...state,
+				trainStatus: action.status
+			}
+		}
+		case CARDS.SET_GRADE_CARD: {
+			return {
+				...state,
+				cards: state.cards.map(card => {
+					console.log(card._id === action.id)
+					if (card._id === action.id) {
+						return {
+							...card,
+							grade: action.grade,
+							shots: action.shots
+						}
+					} else {
+						return card
+					}
+				})
+			}
+		}
+		case CARDS.SET_CARD_ID: {
+			return {
+				...state,
+				cardId: action.id
+			}
+		}
 		default:
 			return state
 	}
@@ -72,6 +124,14 @@ export const cardsReducer = (state: initialStateType = initialState, action: Act
 export const setCardsAC = (cards: Array<CardType>) => ({type: CARDS.SET_CARDS, cards} as const)
 // export const setCardsErrorAC = (error: string) => ({type: CARDS.SET_CARDS_ERROR, error} as const)
 export const setCardsStatusAC = (status: RequestStatusType) => ({type: CARDS.SET_CARDS_STATUS, status} as const)
+export const setTrainStatusAC = (status: RequestStatusType) => ({type: CARDS.SET_TRAIN_STATUS, status} as const)
+export const updateGradeAC = (grade: number, shots: number, id: string) => ({
+	type: CARDS.SET_GRADE_CARD,
+	grade,
+	shots,
+	id
+} as const)
+export const setCardIdAC = (id: string) => ({type: CARDS.SET_CARD_ID, id} as const)
 
 
 export const getCardsTC = (): ThunkType => (dispatch, getState) => {
@@ -79,7 +139,7 @@ export const getCardsTC = (): ThunkType => (dispatch, getState) => {
 
 	const state = getState()
 	const packId = state.packs.packCardsId
-	console.log(packId)
+	console.log(packId, 'packId')
 
 	cardsAPI.getCardsData(packId)
 		.then(res => {
@@ -94,8 +154,9 @@ export const getCardsTC = (): ThunkType => (dispatch, getState) => {
 				? err.response.data.error
 				: (err.message + ', more details in the console');
 			// dispatch(setCardsErrorAC(error))
-			console.log(error)
-			toast.error(error);
+			toast.error(error,{
+				duration: 2000
+			});
 		})
 		.finally(() => {
 			dispatch(setCardsStatusAC('succeeded'))
@@ -121,7 +182,9 @@ export const addCardTC = (cardsPack_id: string, question?: string, answer?: stri
 				? err.response.data.error
 				: (err.message + ', more details in the console');
 			console.log(error)
-			toast.error(error);
+			toast.error(error,{
+				duration: 2000
+			});
 		})
 		.finally(() => {
 			dispatch(setCardsStatusAC('succeeded'))
@@ -144,7 +207,9 @@ export const updateCardTC = (cardId: string, value: string, value2: string): Thu
 				? err.response.data.error
 				: (err.message + ', more details in the console');
 			console.log(error)
-			toast.error(error);
+			toast.error(error,{
+				duration: 2000
+			});
 		})
 		.finally(() => {
 			dispatch(setCardsStatusAC('succeeded'))
@@ -163,10 +228,36 @@ export const deleteCardTC = (cardsPack_id: string): ThunkType => (dispatch, getS
 				? err.response.data.error
 				: (err.message + ', more details in the console');
 			console.log(error)
-			toast.error(error);
+			toast.error(error,{
+				duration: 2000
+			});
 		})
 		.finally(() => {
 			dispatch(setCardsStatusAC('succeeded'))
+		})
+}
+
+export const updateGradeTC = (cardId: string, grade: number): ThunkType => (dispatch) => {
+	dispatch(setTrainStatusAC('loading'))
+	return cardsAPI.updateGradeCard(grade, cardId)
+		.then(res => {
+			dispatch(updateGradeAC(res.updatedGrade.grade, res.updatedGrade.shots, res.updatedGrade.card_id))
+			toast.success('Thank you for rating!', {
+				duration: 1000,
+				icon: '👏',
+			});
+		})
+		.catch(e => {
+			const error = e.response
+				? e.response.data.error
+				: (e.message + ', more details in the console');
+			console.log(error)
+			toast.error(error, {
+				duration: 3000
+			});
+		})
+		.finally(() => {
+			dispatch(setTrainStatusAC('succeeded'))
 		})
 }
 
@@ -176,6 +267,9 @@ type ActionsType =
 	| ReturnType<typeof setPackCardsIdAC>
 	| ReturnType<typeof setCardsStatusAC>
 	| ReturnType<typeof setPackUserIdAC>
+	| ReturnType<typeof updateGradeAC>
+	| ReturnType<typeof setCardIdAC>
+	| ReturnType<typeof setTrainStatusAC>
 	| any
 
 export type ThunkType = ThunkAction<void, AppRootState, Dispatch<ActionsType>, ActionsType>

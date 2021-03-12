@@ -1,15 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {CardType, setCardsAC} from '../../bll/reducers/cards-reducer';
+import {CardType, getCardsTC, updateGradeTC} from '../../bll/reducers/cards-reducer';
 import {useDispatch, useSelector} from 'react-redux';
-import {NavLink, useParams} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import {AppRootState} from '../../bll/store';
 import SuperButton from '../06_common/c2-SuperButton/SuperButton';
 import t from './TrainContainer.module.scss';
 import {PATH} from '../05_routes/Routes';
+import {RequestStatusType} from '../../bll/reducers/app-reducer';
+import Loader from '../06_common/c5-Loader/Loader';
 
 const grades = ['не знал', 'забыл', 'долго думал', 'перепутал', 'знал'];
 
-const getCard = (cards: CardType[]) => {
+const getCardRandom = (cards: CardType[]) => {
 	const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
 	const rand = Math.random() * sum;
 	const res = cards.reduce((acc: { sum: number, id: number }, card, i) => {
@@ -22,100 +24,91 @@ const getCard = (cards: CardType[]) => {
 	return cards[res.id + 1];
 }
 
+
 export const Train = () => {
-		const dispatch = useDispatch();
-		const [isChecked, setIsChecked] = useState<boolean>(false);
-		const [first, setFirst] = useState<boolean>(true);
-		const {cards} = useSelector((store: AppRootState) => store.cards);
-		const paramsCard = useParams<{ cardId: string }>()
+	const dispatch = useDispatch();
+	const status = useSelector<AppRootState, RequestStatusType>(state => state.cards.trainStatus)
+	const [first, setFirst] = useState<boolean>(true);
+	const [isChecked, setIsChecked] = useState<boolean>(false);
+	const [grade, setGrade] = useState<number>(0)
+	console.log(grade, 'newGrade')
+	const cards = useSelector((store: AppRootState) => store.cards.cards);
+	console.log(cards)
+	const [card, setCard] = useState<CardType>({
+		answer: '',
+		question: '',
+		cardsPack_id: '',
+		grade: 0,
+		rating: 0,
+		shots: 0,
+		type: '',
+		user_id: '',
+		created: '',
+		updated: '',
+		__v: 0,
+		_id: '',
+	});
+	console.log(status)
 
-		const [card, setCard] = useState<any>({
-			_id: 'fake',
-			cardsPack_id: '',
-
-			answer: 'empty answer',
-			question: 'empty question',
-			grade: 0,
-			shots: 0,
-
-			type: '',
-			rating: 0,
-			more_id: '',
-
-			created: '',
-			updated: '',
-		});
-
-
-		useEffect(() => {
-			console.log('LearnContainer useEffect');
-
-			if (first) {
-				// dispatch(getCardsTC());
-				setFirst(false);
-			}
-
-			console.log('cards', cards)
-			if (cards.length > 0) setCard(getCard(cards));
-
-			return () => {
-				console.log('LearnContainer useEffect off');
-			}
-		}, [dispatch, paramsCard, cards, first]);
-
-		const onNext = () => {
-			setIsChecked(false);
-
-			if (cards.length > 0) {
-				setCard(getCard(cards));
-			} else {
-
-			}
+	useEffect(() => {
+		if (first) {
+			dispatch(getCardsTC())
+			setFirst(false)
 		}
 
-		const resetCards = () => {
-			dispatch(setCardsAC([]))
+		if (cards.length > 0) {
+			setCard(getCardRandom(cards));
 		}
 
-		return (
-			<div className={t.trainBox}>
+	}, [dispatch, first, cards])
 
-				{
-					!cards.length
-						? <>
-							<NavLink to={PATH.PACKS} className={t.backLink}>
-								<SuperButton className={t.backBtn} onClick={resetCards}>Packs</SuperButton>
-							</NavLink>
-							<div className={t.emptyMessage}>Oops, it's empty. Please choose another pack..</div>
-						</>
-						:
-						<>
-							<NavLink to={PATH.PACKS} className={t.backLink}>
-								<SuperButton className={t.backBtn} onClick={resetCards}>Packs</SuperButton>
-							</NavLink>
-							<div className={t.question}>{card.question}</div>
-							<div>
-								<SuperButton onClick={() => setIsChecked(true)} className={t.checkBtn}>check</SuperButton>
-							</div>
+	const setCheckedMode = () => setIsChecked(true)
+	const setGradeToCard = (grade: number) => setGrade(grade)
 
-							{isChecked && (
-								<>
-									<div className={t.answer}>{card.answer}</div>
-
-									<div className={t.answerBoxBtn}>
-										{grades.map((g, i) => (
-											<SuperButton className={t.answerBtn} key={'grade-' + i} onClick={() => {
-											}}>{g}</SuperButton>))
-										}
-									</div>
-
-									<div><SuperButton onClick={onNext} className={t.nextBtn}>next</SuperButton></div>
-								</>
-							)}
-						</>
-				}
-			</div>
-		);
+	const onNextHandler = () => {
+		dispatch(updateGradeTC(card._id, grade))
+		setIsChecked(false)
 	}
-;
+
+	return (
+		<div className={t.trainBox}>
+			{status === 'loading' && <Loader/>}
+			{
+				!cards.length
+					? <>
+						<NavLink to={PATH.PACKS} className={t.backLink}>
+							<SuperButton className={t.backBtn}>Packs</SuperButton>
+						</NavLink>
+						{status === 'loading' ? null :
+							<div className={t.emptyMessage}>Oops, it's empty. Please choose another pack..</div>}
+					</>
+					:
+					<>
+						<NavLink to={PATH.PACKS} className={t.backLink}>
+							<SuperButton className={t.backBtn}>Packs</SuperButton>
+						</NavLink>
+						<div className={t.question}>{card && card.question}</div>
+						<div>
+							<SuperButton className={t.checkBtn} onClick={setCheckedMode} disabled={status === 'loading'}>check</SuperButton>
+						</div>
+
+						{isChecked && (
+							<>
+								<div className={t.answer}>{card && card.answer}</div>
+
+								<div className={t.answerBoxBtn}>
+									{grades.map((g, i) => (
+										<SuperButton className={t.answerBtn} key={'grade-' + i}
+																 onClick={() => setGradeToCard(i + 1)}>{g}</SuperButton>))
+									}
+								</div>
+
+								<div><SuperButton className={t.nextBtn} onClick={onNextHandler}>next</SuperButton></div>
+							</>
+						)}
+					</>
+			}
+		</div>
+	);
+}
 

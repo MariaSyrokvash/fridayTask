@@ -33,5 +33,13 @@ export const cardsAPI = {
 	deleteCard: async (cardsPack_id: string) => {
 		const response = await instance.delete(`cards/card?id=${cardsPack_id}` )
 		return response.data
+	},
+	updateGradeCard: async (grade: number, cardId: string) => {
+		console.log(cardId, 'cardId')
+		const response = await instance.put(`/cards/grade`, {
+			grade: grade,
+			card_id: cardId
+		})
+		return response.data
 	}
 }

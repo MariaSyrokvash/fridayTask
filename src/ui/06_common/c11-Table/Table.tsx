@@ -36,6 +36,10 @@ export const Table: FC<TablePropsType> = ({packs, headerElement, cards}) => {
 		dispatch(getCardsTC())
 	}
 
+	const goToTrainHandler = (packId: string) => {
+		dispatch(setPackCardsIdAC(packId))
+	}
+
 
 	const renderBodyPacks = (packs: Array<PackType>) => {
 		return packs && packs.map(({_id, name, cardsCount, user_name, updated, user_id}) => {
@@ -52,7 +56,7 @@ export const Table: FC<TablePropsType> = ({packs, headerElement, cards}) => {
 						<img src={eye} className={s.cardIcon}/>
 					</NavLink>
 					</td>
-					<td><NavLink className={s.cardLink} onClick={() => goToCardHandler(_id)}
+					<td><NavLink className={s.cardLink} onClick={() => goToTrainHandler(_id)}
 											 to={PATH.TRAIN + `/${_id}`}><img src={train} className={s.trainIcon}/></NavLink></td>
 					<td className={s.operation}>
 						{

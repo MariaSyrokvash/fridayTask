@@ -35,6 +35,7 @@ const initialState: initialStateType = {
 	packUserId: '',
 }
 
+console.log(initialState.packCardsId)
 
 export const packsReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
 	switch (action.type) {
