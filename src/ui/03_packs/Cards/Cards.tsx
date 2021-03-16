@@ -30,7 +30,6 @@ export const Cards: FC<CardsPropsType> = ({tableHeader, cards, status}) => {
 	const [updateValue, setUpdateValue] = useState<string>('')
 	const [updateValue2, setUpdateValue2] = useState<string>('')
 
-
 	const closeModal = () => history.push(PATH.CARDS + `/${cardsPackId}`)
 
 	const resetCards = () => {dispatch(setCardsAC([]))}

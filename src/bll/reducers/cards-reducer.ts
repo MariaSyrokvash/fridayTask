@@ -16,22 +16,6 @@ enum CARDS {
 	SET_TRAIN_STATUS = 'SET_TRAIN_STATUS'
 }
 
-// export type CardType = {
-// 	answer: string | null
-// 	question: string | null
-// 	cardsPack_id: string | null
-// 	grade: number
-// 	rating: number | null
-// 	shots: number
-// 	type: string | null
-// 	user_id: string | null
-// 	created: string | null
-// 	updated: string | null
-// 	more_id: string | null
-// 	__v: number | null
-// 	_id: string
-// }
-
 export type CardType = {
 	answer: string | null
 	question: string | null
@@ -157,9 +141,6 @@ export const getCardsTC = (): ThunkType => (dispatch, getState) => {
 			toast.error(error,{
 				duration: 2000
 			});
-		})
-		.finally(() => {
-			dispatch(setCardsStatusAC('succeeded'))
 		})
 		.finally(() => {
 			dispatch(setCardsStatusAC('succeeded'))

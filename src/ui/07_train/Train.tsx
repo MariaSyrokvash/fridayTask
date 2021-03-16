@@ -27,13 +27,12 @@ const getCardRandom = (cards: CardType[]) => {
 
 export const Train = () => {
 	const dispatch = useDispatch();
+	const [activeGrade, setActiveGrade] = useState<string | null>(null);
 	const status = useSelector<AppRootState, RequestStatusType>(state => state.cards.trainStatus)
 	const [first, setFirst] = useState<boolean>(true);
 	const [isChecked, setIsChecked] = useState<boolean>(false);
 	const [grade, setGrade] = useState<number>(0)
-	console.log(grade, 'newGrade')
 	const cards = useSelector((store: AppRootState) => store.cards.cards);
-	console.log(cards)
 	const [card, setCard] = useState<CardType>({
 		answer: '',
 		question: '',
@@ -48,7 +47,8 @@ export const Train = () => {
 		__v: 0,
 		_id: '',
 	});
-	console.log(status)
+
+	console.log(status, 'train')
 
 	useEffect(() => {
 		if (first) {
@@ -63,11 +63,15 @@ export const Train = () => {
 	}, [dispatch, first, cards])
 
 	const setCheckedMode = () => setIsChecked(true)
-	const setGradeToCard = (grade: number) => setGrade(grade)
+
+	const setGradeToCard = (grade: number, event?: any) => {
+		setGrade(grade)
+	}
 
 	const onNextHandler = () => {
 		dispatch(updateGradeTC(card._id, grade))
 		setIsChecked(false)
+		setActiveGrade(null)
 	}
 
 	return (
@@ -89,7 +93,8 @@ export const Train = () => {
 						</NavLink>
 						<div className={t.question}>{card && card.question}</div>
 						<div>
-							<SuperButton className={t.checkBtn} onClick={setCheckedMode} disabled={status === 'loading'}>check</SuperButton>
+							<SuperButton className={t.checkBtn} onClick={setCheckedMode}
+													 disabled={status === 'loading'}>check</SuperButton>
 						</div>
 
 						{isChecked && (
@@ -98,8 +103,13 @@ export const Train = () => {
 
 								<div className={t.answerBoxBtn}>
 									{grades.map((g, i) => (
-										<SuperButton className={t.answerBtn} key={'grade-' + i}
-																 onClick={() => setGradeToCard(i + 1)}>{g}</SuperButton>))
+										<SuperButton data-tag={i + 1} className={`${t.answerBtn} ${activeGrade === g ? t.answerBtnActive : null }`}
+																 key={'grade-' + i}
+																 onClick={(event: any) => {
+																	 setGradeToCard(i + 1, event)
+																	 setActiveGrade(g)
+																 }
+																 }>{g}</SuperButton>))
 									}
 								</div>
 

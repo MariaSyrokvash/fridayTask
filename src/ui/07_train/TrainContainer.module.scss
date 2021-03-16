@@ -56,13 +56,18 @@
 .answerBtn {
   height: 30px !important;
   background-color: $gray !important;
-  border: 1px solid $gray !important;
+  border: none !important;
   color: $dark-theme-text !important;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 14px;
   width: 150px;
+}
+
+.answerBtnActive {
+  background-color: $accent-color !important;
+  color: $light-theme-text !important;
 }
 
 .nextBtn {

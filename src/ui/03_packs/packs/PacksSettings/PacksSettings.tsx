@@ -113,7 +113,7 @@ export const PacksSettings: FC<PacksPropsType> = ({theme, packs}) => {
 			<PaginationComponent handlePageChange={handlePageChange} totalPages={totalPages}/>
 
 			<Route path={PATH.PACKS + '/add'}
-						 render={() => <ModalBase closeModal={closeModal} input={input} onChangeText={onChangeText}
+						 render={() => <ModalBase theme={theme} closeModal={closeModal} input={input} onChangeText={onChangeText}
 																			addNewItemHandler={onClickAddPackHandler} isAddingForm={true}
 																			title='Please, enter the name of the pack'/>}/>
 		</div>

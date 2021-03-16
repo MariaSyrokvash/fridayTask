@@ -1,10 +1,25 @@
 @import "src/ui/06_common/styles/colors/colors";
 
+.loader-wrap {
+  font-family: "Jost", sans-serif;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(40, 44, 52, 0.8);
+  z-index: 1000;
+}
+
 .lds-ellipsis {
   display: inline-block;
   position: absolute;
-  top: 20%;
-  left: 45%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 80px;
   height: 80px;
 }

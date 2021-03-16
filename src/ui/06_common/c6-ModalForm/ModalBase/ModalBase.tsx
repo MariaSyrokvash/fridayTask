@@ -42,6 +42,7 @@ export const ModalBase: FC<PropsType> = ({
 		addNewItemHandler && addNewItemHandler(input)
 	}
 
+	console.log(theme)
 	return (
 		<div className={s.wrapper}>
 			<div className={`${s.modal} ${theme === 'light' ? s.light : s.dark}`}>

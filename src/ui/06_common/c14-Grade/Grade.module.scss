@@ -1,0 +1,12 @@
+@import "src/ui/06_common/styles/colors/colors";
+
+.star {
+  content: '&#9734';
+  color: $accent-color;
+  cursor: pointer;
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+}

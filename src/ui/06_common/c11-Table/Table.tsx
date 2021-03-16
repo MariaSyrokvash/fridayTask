@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import s from './Table.module.scss'
 import {PackType, setPackCardsIdAC} from '../../../bll/reducers/packs-reducer';
 import del from './image/delete.svg'
@@ -12,6 +12,7 @@ import eye from '../../02_auth/q3-signUp/image/eye.svg';
 import train from './../../03_packs/Packs/image/train.svg';
 import Loader from '../c5-Loader/Loader';
 import {RequestStatusType} from '../../../bll/reducers/app-reducer';
+import {Grade, RatingValueType} from '../c14-Grade/Grade';
 
 type TablePropsType = {
 	headerElement: Array<string>
@@ -21,6 +22,7 @@ type TablePropsType = {
 
 export const Table: FC<TablePropsType> = ({packs, headerElement, cards}) => {
 	const dispatch = useDispatch()
+	const [ratingValue, setRatingValue] = useState<RatingValueType>(0);
 	const myId = useSelector<AppRootState, string | null>(state => state.profile.profile._id)
 	const status = useSelector<AppRootState, RequestStatusType>(state => state.packs.status)
 
@@ -53,8 +55,8 @@ export const Table: FC<TablePropsType> = ({packs, headerElement, cards}) => {
 					<td>{time}</td>
 					<td>
 						<NavLink className={s.cardLink} onClick={() => goToCardHandler(_id)} to={PATH.CARDS + `/${_id}`}>
-						<img src={eye} className={s.cardIcon}/>
-					</NavLink>
+							<img src={eye} className={s.cardIcon}/>
+						</NavLink>
 					</td>
 					<td><NavLink className={s.cardLink} onClick={() => goToTrainHandler(_id)}
 											 to={PATH.TRAIN + `/${_id}`}><img src={train} className={s.trainIcon}/></NavLink></td>
@@ -76,6 +78,8 @@ export const Table: FC<TablePropsType> = ({packs, headerElement, cards}) => {
 		})
 	}
 
+
+
 	const renderBodyCards = (cards: Array<CardType>) => {
 		if (!cards.length) return
 		return cards && cards.map(({_id, question, answer, grade, user_id}) => {
@@ -84,7 +88,8 @@ export const Table: FC<TablePropsType> = ({packs, headerElement, cards}) => {
 				<tr key={_id}>
 					<td>{question}</td>
 					<td>{answer}</td>
-					<td>{grade}</td>
+					{/*<td>{grade}</td>*/}
+					<td><Grade value={grade} setRatingValue={setRatingValue}/></td>
 					<td className={s.operation}>
 						{
 							user_id === myId &&
@@ -106,7 +111,7 @@ export const Table: FC<TablePropsType> = ({packs, headerElement, cards}) => {
 
 	return (
 		<div className={s.tableBox}>
-			{status === 'loading' && <Loader />}
+			{status === 'loading' && <Loader/>}
 			<table className={s.table}>
 				<thead>
 				<tr>
@@ -117,7 +122,7 @@ export const Table: FC<TablePropsType> = ({packs, headerElement, cards}) => {
 				<tbody>
 				{packs && renderBodyPacks(packs)}
 				{cards && renderBodyCards(cards)}
-				{cards && !cards.length && status !== 'loading'&& <tr className={s.emptyPackTitle}>
+				{cards && !cards.length && status !== 'loading' && <tr className={s.emptyPackTitle}>
           <td>There are no cards in this pack..</td>
         </tr>}
 
