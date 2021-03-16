@@ -30,6 +30,7 @@ export const PaginationComponent: React.FC<PaginationComponentPropsType> = ({
 										 previousLinkClassName={p.previousLinkClassName}
 										 nextLinkClassName={p.nextLinkClassName}
 										 breakLinkClassName={p.breakLinkClassName}
+										 disabledClassName={p.disabledClassName}
 			/>
 		</div>
 	);

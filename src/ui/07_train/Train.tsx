@@ -48,8 +48,6 @@ export const Train = () => {
 		_id: '',
 	});
 
-	console.log(status, 'train')
-
 	useEffect(() => {
 		if (first) {
 			dispatch(getCardsTC())
@@ -103,7 +101,8 @@ export const Train = () => {
 
 								<div className={t.answerBoxBtn}>
 									{grades.map((g, i) => (
-										<SuperButton data-tag={i + 1} className={`${t.answerBtn} ${activeGrade === g ? t.answerBtnActive : null }`}
+										<SuperButton data-tag={i + 1}
+																 className={`${t.answerBtn} ${activeGrade === g ? t.answerBtnActive : null}`}
 																 key={'grade-' + i}
 																 onClick={(event: any) => {
 																	 setGradeToCard(i + 1, event)

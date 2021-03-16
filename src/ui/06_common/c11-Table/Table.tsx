@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC} from 'react';
 import s from './Table.module.scss'
 import {PackType, setPackCardsIdAC} from '../../../bll/reducers/packs-reducer';
 import del from './image/delete.svg'
@@ -6,13 +6,13 @@ import refresh from './image/refresh.svg'
 import {useDispatch, useSelector} from 'react-redux';
 import {NavLink} from 'react-router-dom';
 import {PATH} from '../../05_routes/Routes';
-import {CardType, getCardsTC} from '../../../bll/reducers/cards-reducer';
+import {CardType, getCardsTC, updateGradeTC} from '../../../bll/reducers/cards-reducer';
 import {AppRootState} from '../../../bll/store';
 import eye from '../../02_auth/q3-signUp/image/eye.svg';
 import train from './../../03_packs/Packs/image/train.svg';
 import Loader from '../c5-Loader/Loader';
 import {RequestStatusType} from '../../../bll/reducers/app-reducer';
-import {Grade, RatingValueType} from '../c14-Grade/Grade';
+import {Grade} from '../c14-Grade/Grade';
 
 type TablePropsType = {
 	headerElement: Array<string>
@@ -22,7 +22,6 @@ type TablePropsType = {
 
 export const Table: FC<TablePropsType> = ({packs, headerElement, cards}) => {
 	const dispatch = useDispatch()
-	const [ratingValue, setRatingValue] = useState<RatingValueType>(0);
 	const myId = useSelector<AppRootState, string | null>(state => state.profile.profile._id)
 	const status = useSelector<AppRootState, RequestStatusType>(state => state.packs.status)
 
@@ -31,6 +30,10 @@ export const Table: FC<TablePropsType> = ({packs, headerElement, cards}) => {
 		return headerElement.map((key, index) => {
 			return <th key={index}>{key.toUpperCase()}</th>
 		})
+	}
+
+	const setRatingValueHandler = (cardId: string, grade: number) => {
+		dispatch(updateGradeTC(cardId, grade))
 	}
 
 	const goToCardHandler = (packId: string) => {
@@ -88,8 +91,7 @@ export const Table: FC<TablePropsType> = ({packs, headerElement, cards}) => {
 				<tr key={_id}>
 					<td>{question}</td>
 					<td>{answer}</td>
-					{/*<td>{grade}</td>*/}
-					<td><Grade value={grade} setRatingValue={setRatingValue}/></td>
+					<td><Grade value={grade} setRatingValue={() => setRatingValueHandler(_id, grade)}/></td>
 					<td className={s.operation}>
 						{
 							user_id === myId &&

@@ -59,6 +59,10 @@
   color: $dark-theme-text;
 }
 
+.disabledClassName {
+  opacity: 0.5;
+}
+
 @media screen and (max-width: 650px) {
   .paginationBox {
     width: 300px;

@@ -2,8 +2,8 @@ import React, {FC} from 'react';
 import s from './Grade.module.scss'
 
 type GradeTypeProps = {
-	value: RatingValueType | number
-	setRatingValue: (value: RatingValueType) => void
+	value: RatingValueType
+	setRatingValue: (value: RatingValueType ) => void
 }
 
 export const Grade: FC<GradeTypeProps> = ({value, setRatingValue}) => {
@@ -19,7 +19,7 @@ export const Grade: FC<GradeTypeProps> = ({value, setRatingValue}) => {
 }
 
 
-export type RatingValueType = 0 | 1 | 2 | 3 | 4 | 5;
+export type RatingValueType = 0 | 1 | 2 | 3 | 4 | 5  | number
 
 
 type StarPropsType = {
@@ -29,7 +29,5 @@ type StarPropsType = {
 }
 
 const Star: FC<StarPropsType> = ({setRatingValue, selected, value}) => {
-	return <div onClick={() => {
-		setRatingValue(value)
-	}} className={selected ? s.star : ''}>&#9733;</div>
+	return <div onClick={() => setRatingValue(value)} className={`${selected ? s.starFull : ''} ${s.star}`}>&#9733;</div>
 }
