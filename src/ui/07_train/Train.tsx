@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {CardType, getCardsTC, updateGradeTC} from '../../bll/reducers/cards-reducer';
 import {useDispatch, useSelector} from 'react-redux';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useParams} from 'react-router-dom';
 import {AppRootState} from '../../bll/store';
 import SuperButton from '../06_common/c2-SuperButton/SuperButton';
 import t from './TrainContainer.module.scss';
@@ -33,6 +33,7 @@ export const Train = () => {
 	const [isChecked, setIsChecked] = useState<boolean>(false);
 	const [grade, setGrade] = useState<number>(0)
 	const cards = useSelector((store: AppRootState) => store.cards.cards);
+	const {id} = useParams<{ id: string }>()
 	const [card, setCard] = useState<CardType>({
 		answer: '',
 		question: '',
@@ -50,7 +51,7 @@ export const Train = () => {
 
 	useEffect(() => {
 		if (first) {
-			dispatch(getCardsTC())
+			dispatch(getCardsTC(id))
 			setFirst(false)
 		}
 

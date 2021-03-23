@@ -118,18 +118,14 @@ export const updateGradeAC = (grade: number, shots: number, id: string) => ({
 export const setCardIdAC = (id: string) => ({type: CARDS.SET_CARD_ID, id} as const)
 
 
-export const getCardsTC = (): ThunkType => (dispatch, getState) => {
+export const getCardsTC = (cardsPack_id: string): ThunkType => (dispatch, getState) => {
 	dispatch(setCardsStatusAC('loading'))
 
-	const state = getState()
-	const packId = state.packs.packCardsId
-	console.log(packId, 'packId')
-
-	cardsAPI.getCardsData(packId)
+	cardsAPI.getCardsData(cardsPack_id)
 		.then(res => {
 			console.log(res)
 			dispatch(setPackUserIdAC(res.packUserId))
-			dispatch(setPackCardsIdAC(packId))
+			dispatch(setPackCardsIdAC(cardsPack_id))
 			dispatch(setCardsAC(res.cards))
 
 		})
@@ -156,7 +152,7 @@ export const addCardTC = (cardsPack_id: string, question?: string, answer?: stri
 	}
 	cardsAPI.addNewCard(newCard)
 		.then(() => {
-			dispatch(getCardsTC())
+			dispatch(getCardsTC(cardsPack_id))
 		})
 		.catch(err => {
 			const error = err.response
@@ -172,7 +168,7 @@ export const addCardTC = (cardsPack_id: string, question?: string, answer?: stri
 		})
 }
 
-export const updateCardTC = (cardId: string, value: string, value2: string): ThunkType => (dispatch, getState) => {
+export const updateCardTC = (packId: string, cardId: string, value: string, value2: string): ThunkType => (dispatch, getState) => {
 	dispatch(setCardsStatusAC('loading'))
 	const updateCard = {
 		_id: cardId,
@@ -181,7 +177,7 @@ export const updateCardTC = (cardId: string, value: string, value2: string): Thu
 	}
 	cardsAPI.updateCard(updateCard)
 		.then(res => {
-			dispatch(getCardsTC())
+			dispatch(getCardsTC(packId))
 		})
 		.catch(err => {
 			const error = err.response
@@ -198,11 +194,11 @@ export const updateCardTC = (cardId: string, value: string, value2: string): Thu
 }
 
 
-export const deleteCardTC = (cardsPack_id: string): ThunkType => (dispatch, getState) => {
+export const deleteCardTC = (packId: string, cardsPack_id: string): ThunkType => (dispatch, getState) => {
 	dispatch(setCardsStatusAC('loading'))
 	cardsAPI.deleteCard(cardsPack_id)
 		.then((res) => {
-			dispatch(getCardsTC())
+			dispatch(getCardsTC(packId))
 		})
 		.catch(err => {
 			const error = err.response

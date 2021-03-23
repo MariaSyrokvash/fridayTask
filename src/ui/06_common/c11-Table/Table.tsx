@@ -6,7 +6,7 @@ import refresh from './image/refresh.svg'
 import {useDispatch, useSelector} from 'react-redux';
 import {NavLink} from 'react-router-dom';
 import {PATH} from '../../05_routes/Routes';
-import {CardType, getCardsTC, updateGradeTC} from '../../../bll/reducers/cards-reducer';
+import {CardType} from '../../../bll/reducers/cards-reducer';
 import {AppRootState} from '../../../bll/store';
 import eye from '../../02_auth/q3-signUp/image/eye.svg';
 import train from './../../03_packs/Packs/image/train.svg';
@@ -32,13 +32,9 @@ export const Table: FC<TablePropsType> = ({packs, headerElement, cards}) => {
 		})
 	}
 
-	const setRatingValueHandler = (cardId: string, grade: number) => {
-		dispatch(updateGradeTC(cardId, grade))
-	}
 
 	const goToCardHandler = (packId: string) => {
 		dispatch(setPackCardsIdAC(packId))
-		dispatch(getCardsTC())
 	}
 
 	const goToTrainHandler = (packId: string) => {
@@ -82,16 +78,14 @@ export const Table: FC<TablePropsType> = ({packs, headerElement, cards}) => {
 	}
 
 
-
 	const renderBodyCards = (cards: Array<CardType>) => {
 		if (!cards.length) return
 		return cards && cards.map(({_id, question, answer, grade, user_id}) => {
-			console.log(_id)
 			return (
 				<tr key={_id}>
 					<td>{question}</td>
 					<td>{answer}</td>
-					<td><Grade value={grade} setRatingValue={() => setRatingValueHandler(_id, grade)}/></td>
+					<td><Grade value={grade}/></td>
 					<td className={s.operation}>
 						{
 							user_id === myId &&
@@ -127,7 +121,6 @@ export const Table: FC<TablePropsType> = ({packs, headerElement, cards}) => {
 				{cards && !cards.length && status !== 'loading' && <tr className={s.emptyPackTitle}>
           <td>There are no cards in this pack..</td>
         </tr>}
-
 				</tbody>
 			</table>
 		</div>

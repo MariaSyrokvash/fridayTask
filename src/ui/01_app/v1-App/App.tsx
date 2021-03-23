@@ -5,7 +5,6 @@ import {Routes} from '../../05_routes/Routes';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootState} from '../../../bll/store';
 import {Header} from '../v2-Header/Header';
-import {Theme} from '../../06_common/c12-Theme/Theme';
 import {initializeAppTC} from '../../../bll/reducers/app-reducer';
 import {InitializingLoader} from '../../06_common/c13-Initializing/Initializing';
 
@@ -31,7 +30,6 @@ function App() {
 	return (
 		<div className={`${s.app} ${theme === 'dark' ? s.dark : s.light}`}>
 			<div className={s.container}>
-				{/*<Theme theme={theme} toggleTheme={toggleTheme}/>*/}
 				<Header theme={theme} toggleTheme={toggleTheme}/>
 				<Routes theme={theme}/>
 			</div>

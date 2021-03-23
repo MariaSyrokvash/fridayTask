@@ -4,7 +4,6 @@ import style from './Profile.module.scss'
 import {PATH} from '../05_routes/Routes';
 import {ProfileType} from '../../bll/reducers/profile-reducer';
 import user from './image/user.svg'
-import edit	from './image/edit.svg'
 import {Toaster} from 'react-hot-toast';
 
 type ProfilePropsType = {

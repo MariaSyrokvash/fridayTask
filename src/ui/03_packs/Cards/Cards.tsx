@@ -1,8 +1,15 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {Table} from '../../06_common/c11-Table/Table';
-import {addCardTC, CardType, deleteCardTC, setCardsAC, updateCardTC} from '../../../bll/reducers/cards-reducer';
+import {
+	addCardTC,
+	CardType,
+	deleteCardTC,
+	getCardsTC,
+	setCardsAC,
+	updateCardTC
+} from '../../../bll/reducers/cards-reducer';
 import s from './Cards.module.scss';
-import {NavLink, Route, useHistory} from 'react-router-dom';
+import {NavLink, Route, useHistory, useParams} from 'react-router-dom';
 import {PATH} from '../../05_routes/Routes';
 import {RequestStatusType} from '../../../bll/reducers/app-reducer';
 import {useDispatch, useSelector} from 'react-redux';
@@ -23,19 +30,28 @@ export const Cards: FC<CardsPropsType> = ({tableHeader, cards, status}) => {
 	const packUserId = useSelector<AppRootState, string>(state => state.packs.packUserId)
 	const myId = useSelector<AppRootState, string | null>(state => state.profile.profile._id)
 	const cardsPackId =  useSelector<AppRootState, string>(state => state.packs.packCardsId)
+	const [first, setFirst] = useState<boolean>(true);
 	const dispatch = useDispatch()
 	const history = useHistory()
 	const [addValue, setAddValue] = useState<string>('')
 	const [addValue2, setAddValue2] = useState<string>('')
 	const [updateValue, setUpdateValue] = useState<string>('')
 	const [updateValue2, setUpdateValue2] = useState<string>('')
+	const {id} = useParams<{ id: string }>()
+
+	useEffect(() => {
+		if (first) {
+			dispatch(getCardsTC(id))
+			setFirst(false)
+		}
+	},[id])
 
 	const closeModal = () => history.push(PATH.CARDS + `/${cardsPackId}`)
 
 	const resetCards = () => {dispatch(setCardsAC([]))}
 
 	const confirmRemoveCard = (cardId: string) => {
-		dispatch(deleteCardTC(cardId))
+		dispatch(deleteCardTC(cardsPackId, cardId))
 		closeModal()
 	}
 
@@ -46,7 +62,7 @@ export const Cards: FC<CardsPropsType> = ({tableHeader, cards, status}) => {
 	const onChangeTextUpdateHandlerSecond = (value: string) => {setUpdateValue2(value)}
 
 	const updateCard = (cardId: string, value: string, value2: string) => {
-			dispatch(updateCardTC(cardId, value, value2))
+			dispatch(updateCardTC(cardsPackId, cardId, value, value2))
 			closeModal()
 			setUpdateValue('')
 			setUpdateValue2('')

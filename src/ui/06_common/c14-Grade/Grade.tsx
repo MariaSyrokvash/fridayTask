@@ -3,31 +3,31 @@ import s from './Grade.module.scss'
 
 type GradeTypeProps = {
 	value: RatingValueType
-	setRatingValue: (value: RatingValueType ) => void
 }
 
-export const Grade: FC<GradeTypeProps> = ({value, setRatingValue}) => {
+export const Grade: FC<GradeTypeProps> = ({value}) => {
+
+
 	return (
 		<div className={s.box}>
-			<Star selected={value > 0} setRatingValue={setRatingValue} value={1}/>
-			<Star selected={value > 1} setRatingValue={setRatingValue} value={2}/>
-			<Star selected={value > 2} setRatingValue={setRatingValue} value={3}/>
-			<Star selected={value > 3} setRatingValue={setRatingValue} value={4}/>
-			<Star selected={value > 4} setRatingValue={setRatingValue} value={5}/>
+			<Star selected={value > 0} value={1}/>
+			<Star selected={value > 1} value={2}/>
+			<Star selected={value > 2} value={3}/>
+			<Star selected={value > 3} value={4}/>
+			<Star selected={value > 4} value={5}/>
 		</div>
 	)
 }
 
 
-export type RatingValueType = 0 | 1 | 2 | 3 | 4 | 5  | number
+export type RatingValueType = 0 | 1 | 2 | 3 | 4 | 5 | number
 
 
 type StarPropsType = {
 	selected: boolean
-	setRatingValue: (value: RatingValueType) => void
 	value: RatingValueType
 }
 
-const Star: FC<StarPropsType> = ({setRatingValue, selected, value}) => {
-	return <div onClick={() => setRatingValue(value)} className={`${selected ? s.starFull : ''} ${s.star}`}>&#9733;</div>
+const Star: FC<StarPropsType> = ({selected, value}) => {
+	return <div className={`${selected ? s.starFull : ''} ${s.star}`}>&#9733;</div>
 }
