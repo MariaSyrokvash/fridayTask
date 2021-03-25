@@ -35,17 +35,29 @@
   color: $accent-color;
 }
 
-.avatar {
-  width: 150px;
-  height: 150px;
+.avatarBox {
+  position: relative;
 }
 
-.editBox {
-  margin-left: auto;
+.avatar {
+  width: 140px;
+  border-radius: 50%;
 }
 
 .editIcon {
   width: 20px;
   height: 20px;
+  cursor: pointer;
+}
+
+
+.editMode {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px !important;
+  width: 85px !important;
+  margin-left: auto;
   cursor: pointer;
 }

@@ -19,7 +19,6 @@ const getCardRandom = (cards: CardType[]) => {
 			return {sum: newSum, id: newSum < rand ? i : acc.id}
 		}
 		, {sum: 0, id: -1});
-	console.log('test: ', sum, rand, res)
 
 	return cards[res.id + 1];
 }
@@ -29,6 +28,7 @@ export const Train = () => {
 	const dispatch = useDispatch();
 	const [activeGrade, setActiveGrade] = useState<string | null>(null);
 	const status = useSelector<AppRootState, RequestStatusType>(state => state.cards.trainStatus)
+	const statusCards = useSelector<AppRootState, RequestStatusType>(state => state.cards.status)
 	const [first, setFirst] = useState<boolean>(true);
 	const [isChecked, setIsChecked] = useState<boolean>(false);
 	const [grade, setGrade] = useState<number>(0)
@@ -75,6 +75,7 @@ export const Train = () => {
 
 	return (
 		<div className={t.trainBox}>
+			{statusCards === 'loading' && <Loader />}
 			{status === 'loading' && <Loader/>}
 			{
 				!cards.length
@@ -82,7 +83,7 @@ export const Train = () => {
 						<NavLink to={PATH.PACKS} className={t.backLink}>
 							<SuperButton className={t.backBtn}>Packs</SuperButton>
 						</NavLink>
-						{status === 'loading' ? null :
+						{statusCards === 'loading' ? null :
 							<div className={t.emptyMessage}>Oops, it's empty. Please choose another pack..</div>}
 					</>
 					:

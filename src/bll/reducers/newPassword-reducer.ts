@@ -56,7 +56,6 @@ export const sendNewPasswordTC = (newPassword: string, token: string) => (dispat
 	dispatch(setAppStatusAC('loading'))
 	newPasswordAPI.sendNewPassword(newPassword, token)
 		.then(res => {
-			console.log(res.data.message)
 			dispatch(setSuccessAC(res.data.message))
 			toast.success(res.data.message);
 		})
@@ -65,7 +64,6 @@ export const sendNewPasswordTC = (newPassword: string, token: string) => (dispat
 				? err.response.data.error
 				: (err.message + ', more details in the console')
 			dispatch(setErrorAC(error))
-			console.log(error)
 			toast.error(error);
 		})
 		.finally(() => {

@@ -24,6 +24,7 @@ export const Table: FC<TablePropsType> = ({packs, headerElement, cards}) => {
 	const dispatch = useDispatch()
 	const myId = useSelector<AppRootState, string | null>(state => state.profile.profile._id)
 	const status = useSelector<AppRootState, RequestStatusType>(state => state.packs.status)
+	const profileName = useSelector<AppRootState, string | null>(state => state.profile.profile.name)
 
 	const renderHeader = (headerElement: Array<string>, cards?: Array<CardType>) => {
 		if (cards && !cards.length) return
@@ -48,7 +49,7 @@ export const Table: FC<TablePropsType> = ({packs, headerElement, cards}) => {
 			const time = updated && updated.toString().slice(11, 16)
 			return (
 				<tr key={_id}>
-					<td>{user_name}</td>
+					<td>{user_id === myId ? profileName : user_name}</td>
 					<td>{name}</td>
 					<td>{cardsCount}</td>
 					<td>{time}</td>

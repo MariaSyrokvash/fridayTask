@@ -35,7 +35,7 @@ export const Routes: FC<RoutesPropsType> = ({theme}) => {
 				<Route path={'/'} exact render={() => <Redirect to={PATH.LOGIN}/>}/>
 				<Route path={PATH.LOGIN} render={() => <SignInContainer theme={theme}/>}/>
 				<Route path={PATH.REGISTRATION} render={() => <SignUpContainer theme={theme}/>}/>
-				<Route path={PATH.PROFILE} render={() => <ProfileContainer/>}/>
+				<Route path={PATH.PROFILE} render={() => <ProfileContainer theme={theme}/>}/>
 				<Route path={PATH.ERROR_404} render={() => <Error404/>}/>
 				<Route path={PATH.RECOVERY_PASSWORD} render={() => <PasswordRecoveryContainer theme={theme}/>}/>
 				<Route path={PATH.NEW_PASSWORD} render={() => <NewPasswordContainer theme={theme}/>}/>

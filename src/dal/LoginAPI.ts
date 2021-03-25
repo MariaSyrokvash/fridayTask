@@ -16,6 +16,12 @@ export const authAPI = {
 	authMe() {
 		return instance.post('auth/me')
 	},
+	updateMe(name: string | null, avatar: string | null) {
+		return instance.put('auth/me', {
+			name,
+			avatar
+		})
+	},
 	logout() {
 		return instance.delete('auth/me')
 	}

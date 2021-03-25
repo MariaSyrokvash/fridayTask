@@ -151,7 +151,6 @@ export const deletePackTC = (idPack: string | null): ThunkType => (dispatch) => 
 			const error = err.response
 				? err.response.data.error
 				: (err.message + ', more details in the console');
-			console.log(error)
 			toast.error(error)
 		})
 		.finally(() => {
@@ -171,11 +170,9 @@ export const updatePackTС = (packId: string, name: string): ThunkType => (dispa
 			dispatch(getPacksTC())
 		})
 		.catch(err => {
-			console.log(err)
 			const error = err.response
 				? err.response.data.error
 				: (err.message + ', more details in the console');
-			console.log(error)
 			toast.error(error)
 		})
 		.finally(() => {
